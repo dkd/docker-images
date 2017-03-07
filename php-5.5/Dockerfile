@@ -6,5 +6,5 @@ LABEL maintainer.orig="Ervin Varga <ervin.varga@gmail.com>" \
 
 # Install PHP 5.5 (latest version)
 RUN apt-get update -q &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php5-common php5-cli &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php5-common php5-cli php5-curl &&\
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
