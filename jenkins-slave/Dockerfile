@@ -5,6 +5,10 @@ MAINTAINER Ervin Varga <ervin.varga@gmail.com>
 # In case you need proxy
 #RUN echo 'Acquire::http::Proxy "http://127.0.0.1:8080";' >> /etc/apt/apt.conf
 
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 # Add locales after locale-gen as needed
 # Upgrade packages on image
 # Preparations for sshd
