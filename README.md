@@ -1,6 +1,14 @@
-Docker Images Project
-=====================
+# Docker Images Project
 
-Contains various [Docker][1] build files for creating Docker images (base images, intermediate images, etc.). Each folder is designated to one particular image, and has a Dockerfile (besides other build related stuff). Every Dockerfile is well commented and should be consulted for more information what it represents.
+Create multiple Docker images for Jenkins.
 
-[1]: http://docker.io
+## Adding images
+
+- modify `template.yml` to your needs
+- run `rake`
+
+You can compile images for your local development with `rake 'default[true]'`
+
+## Mounting images
+
+- `docker run -p 2222:22 -v PATH_TO_SSH_KEYS:/home/jenkins/.ssh CONTAINER_ID`

@@ -1,0 +1,50 @@
+php7_ruby2_3:
+  system: '16.04'
+  jdk: 8
+  php: 7.0
+  php_extensions:
+    - bcmath
+    - bz2
+    - curl
+    - dba
+    - dom
+    - mbstring
+    - SimpleXML
+    - soap
+    - wddx
+    - xml
+    - xmlreader
+    - xmlwriter
+    - zip
+  ruby: 2.3
+  user: jenkins
+  password: jenkins
+
+php5_5_ruby2_3:
+  system: '14.04'
+  jdk: 7
+  php: 5
+  php_extensions:
+    - common
+    - cli
+    - curl
+  ruby: 2.3
+  ruby_repo: 'ppa:brightbox/ruby-ng'
+  user: jenkins
+  password: jenkins
+
+ruby2_3:
+  system: '16.04'
+  jdk: 8
+  ruby: 2.3
+  ruby_repo: 'ppa:brightbox/ruby-ng'
+  user: jenkins
+  password: jenkins
+
+ruby2_1:
+  system: '14.04'
+  jdk: 7
+  ruby: 2.1
+  ruby_repo: 'ppa:brightbox/ruby-ng'
+  user: jenkins
+  password: jenkins
