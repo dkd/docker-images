@@ -5,19 +5,19 @@ LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
 # Add locales after locale-gen as needed
 # Upgrade packages on image
 # Preparations for sshd
-RUN locale-gen de_DE.UTF-8 &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
+# RUN locale-gen de_DE.UTF-8 &&\
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       curl \
-      openssh-server \
-      language-pack-de-base &&\
+      openssh-server &&\
+#      language-pack-de-base &&\
     mkdir -p /var/run/sshd
 
 # Setting language
-ENV LANG de_DE.UTF-8
-ENV LANGUAGE de_DE:de
-ENV LC_ALL de_DE.UTF-8
+# ENV LANG de_DE.UTF-8
+# ENV LANGUAGE de_DE:de
+# ENV LC_ALL de_DE.UTF-8
 
 # Install JDK 8 (latest edition)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends openjdk-8-jre-headless
