@@ -1,2 +1,2 @@
 ssh_config
-sshd/jenkins_worker
+**/sshd/jenkins_worker*

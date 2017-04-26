@@ -1,0 +1,8 @@
+ChallengeResponseAuthentication no
+UsePAM yes
+Port 22
+PasswordAuthentication no
+PermitRootLogin no
+PrintMotd no
+PubkeyAuthentication yes
+StrictModes yes

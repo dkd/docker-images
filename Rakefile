@@ -38,7 +38,7 @@ end
 
 desc 'start the whole show'
 task :default, :debug do |_, args|
+  Rake::Task['cleanup'].invoke
   args.debug ? Rake::Task['compile'].invoke(true) : Rake::Task['compile'].invoke
   Rake::Task['build'].invoke
-  Rake::Task['cleanup'].invoke
 end
