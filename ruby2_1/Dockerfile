@@ -17,6 +17,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       sqlite3 \
       libsqlite3-dev \
       libcurl4-openssl-dev \
+      imagemagick \
+      libmagickwand-dev \
       openssh-server &&\
 #      language-pack-de-base &&\
     mkdir -p /var/run/sshd
