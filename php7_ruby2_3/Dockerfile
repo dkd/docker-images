@@ -10,6 +10,13 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       curl \
+      libxslt-dev \
+      libxml2-dev \
+      libmysqlclient-dev \
+      build-essential \
+      sqlite3 \
+      libsqlite3-dev \
+      libcurl4-openssl-dev \
       openssh-server &&\
 #      language-pack-de-base &&\
     mkdir -p /var/run/sshd
@@ -25,7 +32,11 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Install PHP 7.0 (latest version)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0                        php7.0-bcmath                  php7.0-bz2                  php7.0-curl                  php7.0-dba                  php7.0-dom                  php7.0-mbstring                  php7.0-SimpleXML                  php7.0-soap                  php7.0-wddx                  php7.0-xml                  php7.0-xmlreader                  php7.0-xmlwriter                  php7.0-zip              
 # Install Ruby 2.3 (latest version)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends ruby2.3 nodejs npm
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      ruby2.3 \
+      ruby2.3-dev \
+      nodejs \
+      npm
 
 # Add user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins

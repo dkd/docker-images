@@ -10,6 +10,13 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       curl \
+      libxslt-dev \
+      libxml2-dev \
+      libmysqlclient-dev \
+      build-essential \
+      sqlite3 \
+      libsqlite3-dev \
+      libcurl4-openssl-dev \
       openssh-server &&\
 #      language-pack-de-base &&\
     mkdir -p /var/run/sshd
@@ -27,7 +34,11 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends apt-transport-https ca-certificates software-properties-common &&\
     add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends ruby2.3 nodejs npm
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      ruby2.3 \
+      ruby2.3-dev \
+      nodejs \
+      npm
 
 # Add user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
