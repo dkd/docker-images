@@ -30,7 +30,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 # ENV LC_ALL de_DE.UTF-8
 
 # Install JDK <%= @data['jdk'] %> (latest edition)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends openjdk-<%= @data['jdk'] %>-jre-headless
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-<%= @data['jdk'] %>-jre-headless
 
 <% if @data['php'] %>
 # Install PHP <%= @data['php'] %> (latest version)
@@ -44,7 +45,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 
 # Install Ruby <%= @data['ruby'] %> (latest version)
 <% if @data['ruby_repo'] %>
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends apt-transport-https ca-certificates software-properties-common &&\
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      apt-transport-https \
+      ca-certificates \
+      software-properties-common &&\
     add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \

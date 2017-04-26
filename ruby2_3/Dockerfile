@@ -19,8 +19,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       libcurl4-openssl-dev \
       imagemagick \
       libmagickwand-dev \
+      # language-pack-de-base \
       openssh-server &&\
-#      language-pack-de-base &&\
     mkdir -p /var/run/sshd
 
 # Setting language
@@ -29,11 +29,15 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 # ENV LC_ALL de_DE.UTF-8
 
 # Install JDK 8 (latest edition)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends openjdk-8-jre-headless
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-8-jre-headless
 
 
 # Install Ruby 2.3 (latest version)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends apt-transport-https ca-certificates software-properties-common &&\
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      apt-transport-https \
+      ca-certificates \
+      software-properties-common &&\
     add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \

@@ -19,8 +19,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       libcurl4-openssl-dev \
       imagemagick \
       libmagickwand-dev \
+      # language-pack-de-base \
       openssh-server &&\
-#      language-pack-de-base &&\
     mkdir -p /var/run/sshd
 
 # Setting language
@@ -29,7 +29,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 # ENV LC_ALL de_DE.UTF-8
 
 # Install JDK 8 (latest edition)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends openjdk-8-jre-headless
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-8-jre-headless
 
 # Install PHP 7.0 (latest version)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0                        php7.0-bcmath                  php7.0-bz2                  php7.0-curl                  php7.0-dba                  php7.0-dom                  php7.0-mbstring                  php7.0-SimpleXML                  php7.0-soap                  php7.0-wddx                  php7.0-xml                  php7.0-xmlreader                  php7.0-xmlwriter                  php7.0-zip              
