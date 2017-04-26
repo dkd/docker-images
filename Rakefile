@@ -9,7 +9,6 @@ YAML_FILE = 'template.yml'.freeze
 desc 'create Dockerfile'
 task :compile, :debug do |_, args|
   data = YAML.load_file("#{__dir__}/#{YAML_FILE}")
-  # puts "ARGS: #{args.debug}"
   data.each do |key, value|
     FileUtils.mkdir_p key
     @data = value
@@ -33,7 +32,6 @@ end
 task :cleanup do
   data = YAML.load_file("#{__dir__}/#{YAML_FILE}")
   data.each do |key, _|
-    p "#{__dir__}/#{key}"
     FileUtils.rm_rf "#{__dir__}/#{key}/sshd"
   end
 end

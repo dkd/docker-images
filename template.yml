@@ -17,8 +17,6 @@ php7_ruby2_3:
     - xmlwriter
     - zip
   ruby: 2.3
-  user: jenkins
-  password: jenkins
 
 php5_5_ruby2_3:
   system: '14.04'
@@ -30,21 +28,15 @@ php5_5_ruby2_3:
     - curl
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  user: jenkins
-  password: jenkins
 
 ruby2_3:
   system: '16.04'
   jdk: 8
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  user: jenkins
-  password: jenkins
 
 ruby2_1:
   system: '14.04'
   jdk: 7
   ruby: 2.1
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  user: jenkins
-  password: jenkins
