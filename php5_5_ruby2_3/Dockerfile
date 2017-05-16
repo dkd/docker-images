@@ -62,6 +62,14 @@ ADD sshd/sshd_config /etc/ssh/sshd_config
 # Standard SSH port
 EXPOSE 22
 
+RUN mkdir /home/jenkins/.ssh && mkdir /home/jenkins/composer-cache && mkdir /home/jenkins/bundler-cache
+RUN chown -R jenkins:jenkins /home/jenkins/.ssh &&\
+    chmod -R 0700 /home/jenkins/.ssh &&\
+    chown -R jenkins:jenkins /home/jenkins/composer-cache &&\
+    chmod -R 0700 /home/jenkins/composer-cache &&\
+    chown -R jenkins:jenkins /home/jenkins/bundler-cache &&\
+    chmod -R 0700 /home/jenkins/bundler-cache
+
 # Mount volumes
 VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/bundler-cache"]
 
