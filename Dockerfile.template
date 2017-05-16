@@ -67,7 +67,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Add user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
 <% if @data['debug'] %>
-RUN mkdir /home/jenkins/.ssh
+RUN mkdir /home/jenkins/.ssh && mkdir /home/jenkins/composer-cache && mkdir /home/jenkins/bundler-cache
 ADD sshd/jenkins_worker.pub /home/jenkins/.ssh/authorized_keys
 RUN chown -R jenkins:jenkins /home/jenkins/.ssh &&\
     chmod -R 0700 /home/jenkins/.ssh
@@ -86,7 +86,7 @@ ADD sshd/sshd_config /etc/ssh/sshd_config
 EXPOSE 22
 
 # Mount volumes
-VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer", "/home/jenkins/ruby"]
+VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/bundler-cache"]
 
 # Default command
 <% if @data['debug'] %>

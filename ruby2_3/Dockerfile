@@ -62,7 +62,7 @@ ADD sshd/sshd_config /etc/ssh/sshd_config
 EXPOSE 22
 
 # Mount volumes
-VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer", "/home/jenkins/ruby"]
+VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/bundler-cache"]
 
 # Default command
 CMD ["/usr/sbin/sshd", "-D"]
