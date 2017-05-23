@@ -1,4 +1,4 @@
-php7_ruby2_3:
+php7_0_ruby2_3:
   system: '16.04'
   jdk: 8
   php: 7.0

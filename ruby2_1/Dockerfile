@@ -47,6 +47,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       nodejs \
       npm
 
+# Update RubyGems and install Bundler
+RUN gem update --system && gem install bundler --version=1.15.0 --no-doc
+
 # Add user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
 
