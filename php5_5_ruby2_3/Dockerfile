@@ -5,11 +5,22 @@ LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
 # Add locales after locale-gen as needed
 # Upgrade packages on image
 # Preparations for sshd
-# RUN locale-gen de_DE.UTF-8 &&\
+
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends locales
+RUN locale-gen en_US.UTF-8 de_DE.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-8
+
+# Setting language
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       curl \
+      locales \
       git-core \
       libxslt-dev \
       libxml2-dev \
@@ -23,11 +34,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       # language-pack-de-base \
       openssh-server &&\
     mkdir -p /var/run/sshd
-
-# Setting language
-# ENV LANG de_DE.UTF-8
-# ENV LANGUAGE de_DE:de
-# ENV LC_ALL de_DE.UTF-8
 
 # Install JDK 7 (latest edition)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
