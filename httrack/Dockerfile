@@ -6,5 +6,5 @@ LABEL maintainer.orig="Ervin Varga <ervin.varga@gmail.com>" \
 
 # Install httrack
 RUN apt-get update -q &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends httrack &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends lftp httrack &&\
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
