@@ -36,12 +36,12 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       openssh-server &&\
     mkdir -p /var/run/sshd
 
-# Install JDK <%= @data['jdk'] %> (latest edition)
+# Install JDK (v<%= @data['jdk'] %>)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-<%= @data['jdk'] %>-jre-headless
 
 <% if @data['php'] %>
-# Install PHP <%= @data['php'] %> (latest version)
+# Install PHP (v<%= @data['php'] %>)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php<%= @data['php'] %>
       <% if @data['php_extensions'] %>
         <% @data['php_extensions'].each do |extension| %>
@@ -50,7 +50,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       <% end %>
 <% end %>
 
-# Install Ruby <%= @data['ruby'] %> (latest version)
+# Install Ruby (v<%= @data['ruby'] %>)
 <% if @data['ruby_repo'] %>
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
@@ -60,19 +60,28 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby<%= @data['ruby'] %> \
-      ruby<%= @data['ruby'] %>-dev \
-      nodejs \
-      npm
+      ruby<%= @data['ruby'] %>-dev
 <% else %>
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby<%= @data['ruby'] %> \
-      ruby<%= @data['ruby'] %>-dev \
-      nodejs \
-      npm
+      ruby<%= @data['ruby'] %>-dev
 <% end %>
 
 # Update RubyGems and install Bundler
 RUN gem update --system && gem install bundler --no-doc
+
+<% if @data['nodejs'] %>
+# Install nodejs (v<%= @data['nodejs'] %>)
+RUN DEBIAN_FRONTEND="noninteractive" \
+    curl -SLO "https://nodejs.org/dist/v<%= @data['nodejs'] %>/node-v<%= @data['nodejs'] %>-linux-x64.tar.xz" \
+    && tar -xJf "node-v<%= @data['nodejs'] %>-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
+    && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+<% end %>
+
+<% if @data['bower'] %>
+# Install bower (v<%= @data['bower'] %>)
+RUN DEBIAN_FRONTEND="noninteractive" /usr/local/bin/npm install -g bower@<%= @data['bower'] %>
+<% end %>
 
 # Add user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins

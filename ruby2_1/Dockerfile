@@ -35,12 +35,12 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       openssh-server &&\
     mkdir -p /var/run/sshd
 
-# Install JDK 7 (latest edition)
+# Install JDK (v7)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-7-jre-headless
 
 
-# Install Ruby 2.1 (latest version)
+# Install Ruby (v2.1)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
       ca-certificates \
@@ -49,12 +49,17 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby2.1 \
-      ruby2.1-dev \
-      nodejs \
-      npm
+      ruby2.1-dev
 
 # Update RubyGems and install Bundler
 RUN gem update --system && gem install bundler --no-doc
+
+# Install nodejs (v6.11.3)
+RUN DEBIAN_FRONTEND="noninteractive" \
+    curl -SLO "https://nodejs.org/dist/v6.11.3/node-v6.11.3-linux-x64.tar.xz" \
+    && tar -xJf "node-v6.11.3-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
+    && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+
 
 # Add user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins

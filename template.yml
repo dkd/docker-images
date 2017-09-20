@@ -17,6 +17,8 @@ php7_0_ruby2_3:
     - xmlwriter
     - zip
   ruby: 2.3
+  nodejs: 6.11.3
+  bower: 1.8.2
 
 php5_5_ruby2_3:
   system: '14.04'
@@ -28,15 +30,18 @@ php5_5_ruby2_3:
     - curl
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
+  nodejs: 6.11.3
 
 ruby2_3:
   system: '16.04'
   jdk: 8
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
+  nodejs: 6.11.3
 
 ruby2_1:
   system: '14.04'
   jdk: 7
   ruby: 2.1
   ruby_repo: 'ppa:brightbox/ruby-ng'
+  nodejs: 6.11.3

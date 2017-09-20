@@ -35,22 +35,28 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       openssh-server &&\
     mkdir -p /var/run/sshd
 
-# Install JDK 8 (latest edition)
+# Install JDK (v8)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
 
-# Install PHP 7.0 (latest version)
+# Install PHP (v7.0)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0                        php7.0-bcmath                  php7.0-bz2                  php7.0-curl                  php7.0-dba                  php7.0-dom                  php7.0-mbstring                  php7.0-SimpleXML                  php7.0-soap                  php7.0-wddx                  php7.0-xml                  php7.0-xmlreader                  php7.0-xmlwriter                  php7.0-zip              
-# Install Ruby 2.3 (latest version)
+# Install Ruby (v2.3)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby2.3 \
-      ruby2.3-dev \
-      nodejs \
-      npm
+      ruby2.3-dev
 
 # Update RubyGems and install Bundler
 RUN gem update --system && gem install bundler --no-doc
 
+# Install nodejs (v6.11.3)
+RUN DEBIAN_FRONTEND="noninteractive" \
+    curl -SLO "https://nodejs.org/dist/v6.11.3/node-v6.11.3-linux-x64.tar.xz" \
+    && tar -xJf "node-v6.11.3-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
+    && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+
+# Install bower (v1.8.2)
+RUN DEBIAN_FRONTEND="noninteractive" /usr/local/bin/npm install -g bower@1.8.2
 # Add user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
 
