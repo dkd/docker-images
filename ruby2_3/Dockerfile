@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:xenial-20170915
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
       maintainer.second="Michael Skrynski 'michael.skrynski@dkd.de'"
 
@@ -35,6 +35,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       openssh-server &&\
     mkdir -p /var/run/sshd
 
+
 # Install JDK (v8)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
@@ -46,10 +47,12 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       ca-certificates \
       software-properties-common &&\
     add-apt-repository ppa:brightbox/ruby-ng &&\
-    apt-get update -q &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+    apt-get update -q
+
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby2.3 \
       ruby2.3-dev
+
 
 # Update RubyGems and install Bundler
 RUN gem update --system && gem install bundler --no-doc

@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:xenial-20170915
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
       maintainer.second="Michael Skrynski 'michael.skrynski@dkd.de'"
 
@@ -35,6 +35,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       openssh-server &&\
     mkdir -p /var/run/sshd
 
+
 # Install JDK (v8)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
@@ -42,9 +43,11 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Install PHP (v7.0)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0                        php7.0-bcmath                  php7.0-bz2                  php7.0-curl                  php7.0-dba                  php7.0-dom                  php7.0-mbstring                  php7.0-SimpleXML                  php7.0-soap                  php7.0-wddx                  php7.0-xml                  php7.0-xmlreader                  php7.0-xmlwriter                  php7.0-zip              
 # Install Ruby (v2.3)
+
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby2.3 \
       ruby2.3-dev
+
 
 # Update RubyGems and install Bundler
 RUN gem update --system && gem install bundler --no-doc
