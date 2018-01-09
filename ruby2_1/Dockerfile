@@ -1,4 +1,4 @@
-FROM ubuntu:trusty-20170817
+FROM ubuntu:trusty-20171207
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
       maintainer.second="Michael Skrynski 'michael.skrynski@dkd.de'"
 
@@ -31,6 +31,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       libcurl4-openssl-dev \
       imagemagick \
       libmagickwand-dev \
+      net-tools \
       # language-pack-de-base \
       openssh-server &&\
     mkdir -p /var/run/sshd
@@ -85,11 +86,13 @@ ADD sshd/sshd_config /etc/ssh/sshd_config
 # Standard SSH port
 EXPOSE 22
 
-RUN mkdir /home/jenkins/.ssh && mkdir /home/jenkins/composer-cache && mkdir /home/jenkins/bundler-cache
+RUN mkdir /home/jenkins/.ssh && mkdir /home/jenkins/composer-cache && mkdir /home/jenkins/.npm && mkdir /home/jenkins/bundler-cache
 RUN chown -R jenkins:jenkins /home/jenkins/.ssh &&\
     chmod -R 0700 /home/jenkins/.ssh &&\
     chown -R jenkins:jenkins /home/jenkins/composer-cache &&\
     chmod -R 0700 /home/jenkins/composer-cache &&\
+    chown -R jenkins:jenkins /home/jenkins/.npm &&\
+    chmod -R 0700 /home/jenkins/.npm &&\
     chown -R jenkins:jenkins /home/jenkins/bundler-cache &&\
     chmod -R 0700 /home/jenkins/bundler-cache
 
