@@ -1,4 +1,4 @@
-FROM ubuntu:trusty-20171207
+FROM ubuntu:trusty-20180123
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
       maintainer.second="Michael Skrynski 'michael.skrynski@dkd.de'"
 

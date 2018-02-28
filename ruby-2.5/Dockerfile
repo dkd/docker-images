@@ -1,4 +1,4 @@
-FROM ubuntu:trusty-20171207
+FROM ubuntu:xenial-20180123
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
       maintainer.second="Michael Skrynski 'michael.skrynski@dkd.de'"
 
@@ -36,19 +36,13 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       openssh-server &&\
     mkdir -p /var/run/sshd
 
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      apt-transport-https \
-      ca-certificates \
-      software-properties-common &&\
-    add-apt-repository ppa:openjdk-r/ppa &&\
-    apt-get update -q
 
 # Install JDK (v8)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
 
 
-# Install Ruby (v2.1)
+# Install Ruby (v2.5)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
       ca-certificates \
@@ -57,8 +51,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      ruby2.1 \
-      ruby2.1-dev
+      ruby2.5 \
+      ruby2.5-dev
 
 
 # Update RubyGems and install Bundler
