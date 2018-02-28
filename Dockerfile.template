@@ -52,10 +52,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 
 <% if @data['php'] %>
 # Install PHP (v<%= @data['php'] %>)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php<%= @data['php'] %>
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends <%= @data['php'] %>
       <% if @data['php_extensions'] %>
         <% @data['php_extensions'].each do |extension| %>
-          php<%= @data['php'] %>-<%= extension %>
+          <%= extension %>
         <% end %>
       <% end %>
 <% end %>

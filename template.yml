@@ -1,55 +1,55 @@
 php-7.0_ruby-2.3:
   system: 'xenial-20180123'
   jdk: 8
-  php: 7.0
+  php: php7.0-cli
   php_extensions:
-    - bcmath
-    - bz2
-    - curl
-    - dba
-    - dom
-    - mbstring
-    - SimpleXML
-    - soap
-    - wddx
-    - xml
-    - xmlreader
-    - xmlwriter
-    - zip
+    - php7.0-bcmath
+    - php7.0-bz2
+    - php7.0-curl
+    - php7.0-dba
+    - php7.0-dom
+    - php7.0-mbstring
+    - php7.0-SimpleXML
+    - php7.0-soap
+    - php7.0-wddx
+    - php7.0-xml
+    - php7.0-xmlreader
+    - php7.0-xmlwriter
+    - php7.0-zip
   ruby: 2.3
-  nodejs: 6.11.3
+  nodejs: 8.9.4
   bower: 1.8.2
 
 php-5.5_ruby-2.3:
   system: 'trusty-20180123'
   jdk_repo: 'ppa:openjdk-r/ppa'
   jdk: 8
-  php: 5
+  php: php5-cli
   php_extensions:
-    - common
-    - cli
-    - curl
+    - php5-common
+    - php5-cli
+    - php5-curl
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  nodejs: 6.11.3
+  nodejs: 8.9.4
 
 ruby-2.5:
   system: 'xenial-20180123'
   jdk: 8
   ruby: 2.5
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  nodejs: 6.11.3
+  nodejs: 8.9.4
 
 ruby-2.4:
   system: 'xenial-20180123'
   jdk: 8
   ruby: 2.4
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  nodejs: 6.11.3
+  nodejs: 8.9.4
 
 ruby-2.3:
   system: 'xenial-20180123'
   jdk: 8
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  nodejs: 6.11.3
+  nodejs: 8.9.4

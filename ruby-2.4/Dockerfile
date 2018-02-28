@@ -58,10 +58,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Update RubyGems and install Bundler
 RUN gem update --system && gem install bundler --no-doc
 
-# Install nodejs (v6.11.3)
+# Install nodejs (v8.9.4)
 RUN DEBIAN_FRONTEND="noninteractive" \
-    curl -SLO "https://nodejs.org/dist/v6.11.3/node-v6.11.3-linux-x64.tar.xz" \
-    && tar -xJf "node-v6.11.3-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
+    curl -SLO "https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x64.tar.xz" \
+    && tar -xJf "node-v8.9.4-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
 
