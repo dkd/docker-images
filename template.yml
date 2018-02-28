@@ -1,3 +1,24 @@
+php-7.2_ruby-2.5:
+  system: 'bionic-20180125'
+  jdk: 8
+  php: php7.2-cli
+  php_extensions:
+    - php7.2-bcmath
+    - php7.2-bz2
+    - php7.2-curl
+    - php7.2-dba
+    - php7.2-dom
+    - php7.2-mbstring
+    - php7.2-SimpleXML
+    - php7.2-soap
+    - php7.2-wddx
+    - php7.2-xml
+    - php7.2-xmlreader
+    - php7.2-xmlwriter
+    - php7.2-zip
+  ruby: 2.5
+  nodejs: 8.9.4
+
 php-7.0_ruby-2.3:
   system: 'xenial-20180123'
   jdk: 8
