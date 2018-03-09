@@ -3,10 +3,12 @@ FROM ubuntu:<%= @data['system'] %>
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
       maintainer.second="Michael Skrynski 'michael.skrynski@dkd.de'"
 
+# Add user jenkins to the image
+RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
+
 # Add locales after locale-gen as needed
 # Upgrade packages on image
 # Preparations for sshd
-
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends locales
@@ -44,55 +46,47 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       software-properties-common &&\
     add-apt-repository <%= @data['jdk_repo'] %> &&\
     apt-get update -q
-<% end %>
 
 # Install JDK (v<%= @data['jdk'] %>)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-<%= @data['jdk'] %>-jre-headless
+<% end %>
 
 <% if @data['php'] %>
-# Install PHP (v<%= @data['php'] %>)
+# Install PHP (<%= @data['php'] %>)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends <%= @data['php'] %>
-      <% if @data['php_extensions'] %>
-        <% @data['php_extensions'].each do |extension| %>
-          <%= extension %>
-        <% end %>
-      <% end %>
+  <% if @data['php_extensions'] %>
+    <% @data['php_extensions'].each do |extension| %>
+      <%= extension %>
+    <% end %>
+  <% end %>
 <% end %>
 
 # Install Ruby (v<%= @data['ruby'] %>)
-<% if @data['ruby_repo'] %>
+<% if @data['ruby'] %>
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
       ca-certificates \
       software-properties-common &&\
     add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q
-<% end %>
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby<%= @data['ruby'] %> \
       ruby<%= @data['ruby'] %>-dev
 
-
 # Update RubyGems and install Bundler
 RUN gem update --system && gem install bundler --no-doc
+<% end %>
 
 <% if @data['nodejs'] %>
 # Install nodejs (v<%= @data['nodejs'] %>)
 RUN DEBIAN_FRONTEND="noninteractive" \
-    curl -SLO "https://nodejs.org/dist/v<%= @data['nodejs'] %>/node-v<%= @data['nodejs'] %>-linux-x64.tar.xz" \
-    && tar -xJf "node-v<%= @data['nodejs'] %>-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
-    && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+    curl -SLO "https://nodejs.org/dist/v<%= @data['nodejs'] %>/node-v<%= @data['nodejs'] %>-linux-x64.tar.xz" &&\
+    tar -xJf "node-v<%= @data['nodejs'] %>-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+    ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
+    rm /node-v<%= @data['nodejs'] %>-linux-x64.tar.xz
 <% end %>
-
-<% if @data['bower'] %>
-# Install bower (v<%= @data['bower'] %>)
-RUN DEBIAN_FRONTEND="noninteractive" /usr/local/bin/npm install -g bower@<%= @data['bower'] %>
-<% end %>
-
-# Add user jenkins to the image
-RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
@@ -106,10 +100,8 @@ ADD sshd/sshd_config /etc/ssh/sshd_config
 # Standard SSH port
 EXPOSE 22
 
+# local cache directory
 RUN mkdir /home/jenkins/.ssh && mkdir /home/jenkins/composer-cache && mkdir /home/jenkins/.npm && mkdir /home/jenkins/bundler-cache
-<% if @data['debug'] %>
-ADD sshd/jenkins_worker.pub /home/jenkins/.ssh/authorized_keys
-<% end %>
 RUN chown -R jenkins:jenkins /home/jenkins/.ssh &&\
     chmod -R 0700 /home/jenkins/.ssh &&\
     chown -R jenkins:jenkins /home/jenkins/composer-cache &&\
@@ -118,12 +110,11 @@ RUN chown -R jenkins:jenkins /home/jenkins/.ssh &&\
     chmod -R 0700 /home/jenkins/.npm &&\
     chown -R jenkins:jenkins /home/jenkins/bundler-cache &&\
     chmod -R 0700 /home/jenkins/bundler-cache
-
-# Mount volumes
 VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/bundler-cache"]
 
 # Default command
 <% if @data['debug'] %>
+ADD sshd/jenkins_worker.pub /home/jenkins/.ssh/authorized_keys
 CMD ["/usr/sbin/sshd", "-D", "-E", "/var/log/security"]
 <% else %>
 CMD ["/usr/sbin/sshd", "-D"]

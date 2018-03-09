@@ -1,26 +1,27 @@
-php-7.2_ruby-2.5:
-  system: 'bionic-20180125'
-  jdk: 8
-  php: php7.2-cli
-  php_extensions:
-    - php7.2-bcmath
-    - php7.2-bz2
-    - php7.2-curl
-    - php7.2-dba
-    - php7.2-dom
-    - php7.2-mbstring
-    - php7.2-SimpleXML
-    - php7.2-soap
-    - php7.2-wddx
-    - php7.2-xml
-    - php7.2-xmlreader
-    - php7.2-xmlwriter
-    - php7.2-zip
-  ruby: 2.5
-  nodejs: 8.9.4
+# not working yet because Ruby installation fails
+# php-7.2_ruby-2.5:
+#   system: 'bionic-20180125'
+#   jdk: 8
+#   php: php7.2-cli
+#   php_extensions:
+#     - php7.2-bcmath
+#     - php7.2-bz2
+#     - php7.2-curl
+#     - php7.2-dba
+#     - php7.2-dom
+#     - php7.2-mbstring
+#     - php7.2-SimpleXML
+#     - php7.2-soap
+#     - php7.2-wddx
+#     - php7.2-xml
+#     - php7.2-xmlreader
+#     - php7.2-xmlwriter
+#     - php7.2-zip
+#   ruby: 2.5
+#   nodejs: 8.10.0
 
 php-7.0_ruby-2.3:
-  system: 'xenial-20180123'
+  system: 'xenial-20180228'
   jdk: 8
   php: php7.0-cli
   php_extensions:
@@ -38,11 +39,10 @@ php-7.0_ruby-2.3:
     - php7.0-xmlwriter
     - php7.0-zip
   ruby: 2.3
-  nodejs: 8.9.4
-  bower: 1.8.2
+  nodejs: 8.10.0
 
 php-5.5_ruby-2.3:
-  system: 'trusty-20180123'
+  system: 'trusty-20180302'
   jdk_repo: 'ppa:openjdk-r/ppa'
   jdk: 8
   php: php5-cli
@@ -52,25 +52,25 @@ php-5.5_ruby-2.3:
     - php5-curl
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  nodejs: 8.9.4
+  nodejs: 8.10.0
 
 ruby-2.5:
-  system: 'xenial-20180123'
+  system: 'xenial-20180228'
   jdk: 8
   ruby: 2.5
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  nodejs: 8.9.4
+  nodejs: 8.10.0
 
 ruby-2.4:
-  system: 'xenial-20180123'
+  system: 'xenial-20180228'
   jdk: 8
   ruby: 2.4
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  nodejs: 8.9.4
+  nodejs: 8.10.0
 
 ruby-2.3:
-  system: 'xenial-20180123'
+  system: 'xenial-20180228'
   jdk: 8
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
-  nodejs: 8.9.4
+  nodejs: 8.10.0
