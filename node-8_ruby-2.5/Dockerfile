@@ -40,7 +40,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 
 
 
-# Install Ruby (v2.4)
+# Install Ruby (v2.5)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
       ca-certificates \
@@ -49,18 +49,19 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      ruby2.4 \
-      ruby2.4-dev
+      ruby2.5 \
+      ruby2.5-dev
 
 # Update RubyGems and install Bundler
-RUN gem update --system && gem install bundler --no-doc
+RUN gem update --system --no-doc && gem install bundler --no-doc
 
 # Install nodejs (v8.10.0)
 RUN DEBIAN_FRONTEND="noninteractive" \
     curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
     tar -xJf "node-v8.10.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v8.10.0-linux-x64.tar.xz
+    rm /node-v8.10.0-linux-x64.tar.xz &&\
+    curl -L https://www.npmjs.org/install.sh | sh
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
@@ -75,15 +76,19 @@ ADD sshd/sshd_config /etc/ssh/sshd_config
 EXPOSE 22
 
 # local cache directory
-RUN mkdir /home/jenkins/.ssh && mkdir /home/jenkins/composer-cache && mkdir /home/jenkins/.npm && mkdir /home/jenkins/bundler-cache
-RUN chown -R jenkins:jenkins /home/jenkins/.ssh &&\
+RUN mkdir /home/jenkins/.ssh &&\
+    chown -R jenkins:jenkins /home/jenkins/.ssh &&\
     chmod -R 0700 /home/jenkins/.ssh &&\
+    mkdir /home/jenkins/composer-cache &&\
     chown -R jenkins:jenkins /home/jenkins/composer-cache &&\
     chmod -R 0700 /home/jenkins/composer-cache &&\
+    mkdir /home/jenkins/.npm &&\
     chown -R jenkins:jenkins /home/jenkins/.npm &&\
     chmod -R 0700 /home/jenkins/.npm &&\
+    mkdir /home/jenkins/bundler-cache &&\
     chown -R jenkins:jenkins /home/jenkins/bundler-cache &&\
     chmod -R 0700 /home/jenkins/bundler-cache
+
 VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/bundler-cache"]
 
 # Default command
