@@ -39,6 +39,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     mkdir -p /var/run/sshd
 
 
+# Install JDK (v8)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-8-jre-headless
+
 
 # Install Ruby (v2.3)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
@@ -62,6 +66,7 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.10.0-linux-x64.tar.xz
 
+# install particular npm version manually (see https://github.com/npm/npm/issues/18524)
 RUN DEBIAN_FRONTEND="noninteractive" \
       curl -SLO https://registry.npmjs.org/npm/-/npm-5.7.1.tgz &&\
       tar xzf npm-5.7.1.tgz &&\

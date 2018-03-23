@@ -39,6 +39,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     mkdir -p /var/run/sshd
 
 
+# Install JDK (v8)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-8-jre-headless
+
 # Install PHP (php7.0-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0-cli            php7.0-bcmath          php7.0-bz2          php7.0-curl          php7.0-dba          php7.0-dom          php7.0-mbstring          php7.0-SimpleXML          php7.0-soap          php7.0-wddx          php7.0-xml          php7.0-xmlreader          php7.0-xmlwriter          php7.0-zip      
 # Install Ruby (v2.3)
@@ -63,6 +67,7 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.10.0-linux-x64.tar.xz
 
+# install particular npm version manually (see https://github.com/npm/npm/issues/18524)
 RUN DEBIAN_FRONTEND="noninteractive" \
       curl -SLO https://registry.npmjs.org/npm/-/npm-5.7.1.tgz &&\
       tar xzf npm-5.7.1.tgz &&\

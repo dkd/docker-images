@@ -73,6 +73,7 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.10.0-linux-x64.tar.xz
 
+# install particular npm version manually (see https://github.com/npm/npm/issues/18524)
 RUN DEBIAN_FRONTEND="noninteractive" \
       curl -SLO https://registry.npmjs.org/npm/-/npm-5.7.1.tgz &&\
       tar xzf npm-5.7.1.tgz &&\
