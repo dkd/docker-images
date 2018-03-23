@@ -40,6 +40,7 @@ node-8_php-7.0_ruby-2.3:
     - php7.0-zip
   ruby: 2.3
   nodejs: 8.10.0
+  npm: 5.7.1
 
 node-8_php-5.5_ruby-2.3:
   system: 'trusty-20180302'
@@ -53,6 +54,7 @@ node-8_php-5.5_ruby-2.3:
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
   nodejs: 8.10.0
+  npm: 5.7.1
 
 node-8_ruby-2.5:
   system: 'xenial-20180228'
@@ -60,6 +62,7 @@ node-8_ruby-2.5:
   ruby: 2.5
   ruby_repo: 'ppa:brightbox/ruby-ng'
   nodejs: 8.10.0
+  npm: 5.7.1
 
 node-8_ruby-2.3:
   system: 'xenial-20180228'
@@ -67,3 +70,4 @@ node-8_ruby-2.3:
   ruby: 2.3
   ruby_repo: 'ppa:brightbox/ruby-ng'
   nodejs: 8.10.0
+  npm: 5.7.1

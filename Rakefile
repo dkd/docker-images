@@ -25,8 +25,8 @@ desc 'compile Dockerfile'
 task :build do
   data = YAML.load_file("#{__dir__}/#{YAML_FILE}")
   data.each do |key, _|
-    puts '=' * 80, key, "docker build -t dkd-jenkins:#{key} #{key} --compress --squash", '=' * 80
-    system("docker build -t dkd-jenkins:#{key} #{key} --compress --squash")
+    puts '=' * 80, key, "docker build -t dkdde/docker-jenkins-slave:#{key} #{key} --compress --squash", '=' * 80
+    system("docker build -t dkdde/docker-jenkins-slave:#{key} #{key} --compress --squash")
   end
 end
 

@@ -71,8 +71,14 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
     tar -xJf "node-v8.10.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v8.10.0-linux-x64.tar.xz &&\
-    curl -L https://www.npmjs.org/install.sh | sh
+    rm /node-v8.10.0-linux-x64.tar.xz
+
+RUN DEBIAN_FRONTEND="noninteractive" \
+      curl -SLO https://registry.npmjs.org/npm/-/npm-5.7.1.tgz &&\
+      tar xzf npm-5.7.1.tgz &&\
+      cd package &&\
+      ./scripts/install.sh &&\
+      rm -rf /npm-5.7.1.tgz /package
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

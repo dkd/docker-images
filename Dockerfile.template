@@ -85,8 +85,17 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     curl -SLO "https://nodejs.org/dist/v<%= @data['nodejs'] %>/node-v<%= @data['nodejs'] %>-linux-x64.tar.xz" &&\
     tar -xJf "node-v<%= @data['nodejs'] %>-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v<%= @data['nodejs'] %>-linux-x64.tar.xz &&\
-    curl -L https://www.npmjs.org/install.sh | sh
+    rm /node-v<%= @data['nodejs'] %>-linux-x64.tar.xz
+
+<% if @data['npm'] %>
+# install particular npm version manually (see https://github.com/npm/npm/issues/18524)
+RUN DEBIAN_FRONTEND="noninteractive" \
+      curl -SLO https://registry.npmjs.org/npm/-/npm-<%= @data['npm'] %>.tgz &&\
+      tar xzf npm-<%= @data['npm'] %>.tgz &&\
+      cd package &&\
+      ./scripts/install.sh &&\
+      rm -rf /npm-<%= @data['npm'] %>.tgz /package
+<% end %>
 <% end %>
 
 # Cleanup
