@@ -10,8 +10,8 @@ RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
 # Preparations for sshd
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends locales
-RUN locale-gen en_US.UTF-8 de_DE.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-8
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends locales &&\
+    locale-gen en_US.UTF-8 de_DE.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-8
 
 # Setting language
 ENV LANG en_US.UTF-8
@@ -37,6 +37,28 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       # language-pack-de-base \
       openssh-server &&\
     mkdir -p /var/run/sshd
+
+# Modify SSHD config
+ADD sshd/sshd_config /etc/ssh/sshd_config
+
+# Standard SSH port
+EXPOSE 22
+
+# local cache directory
+RUN mkdir /home/jenkins/.ssh &&\
+    chown -R jenkins:jenkins /home/jenkins/.ssh &&\
+    chmod -R 0700 /home/jenkins/.ssh &&\
+    mkdir /home/jenkins/composer-cache &&\
+    chown -R jenkins:jenkins /home/jenkins/composer-cache &&\
+    chmod -R 0700 /home/jenkins/composer-cache &&\
+    mkdir /home/jenkins/.npm &&\
+    chown -R jenkins:jenkins /home/jenkins/.npm &&\
+    chmod -R 0700 /home/jenkins/.npm &&\
+    mkdir /home/jenkins/bundler-cache &&\
+    chown -R jenkins:jenkins /home/jenkins/bundler-cache &&\
+    chmod -R 0700 /home/jenkins/bundler-cache
+
+VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/bundler-cache"]
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
@@ -64,11 +86,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       ruby2.3-dev
 
 # Update RubyGems and install Bundler
-RUN gem update --system --no-doc && gem install bundler --no-doc
+RUN gem update --system 2.7.4 --no-doc --no-post-install-message && gem install bundler --version=1.16.1 --no-doc --no-post-install-message
 
 # Install nodejs (v8.10.0)
-RUN DEBIAN_FRONTEND="noninteractive" \
-    curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
+RUN DEBIAN_FRONTEND="noninteractive" curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
     tar -xJf "node-v8.10.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.10.0-linux-x64.tar.xz
@@ -86,28 +107,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q clean -y &&\
     rm -rf /var/lib/apt/lists/* &&\
     rm -f /var/cache/apt/*.bin
-
-# Modify SSHD config
-ADD sshd/sshd_config /etc/ssh/sshd_config
-
-# Standard SSH port
-EXPOSE 22
-
-# local cache directory
-RUN mkdir /home/jenkins/.ssh &&\
-    chown -R jenkins:jenkins /home/jenkins/.ssh &&\
-    chmod -R 0700 /home/jenkins/.ssh &&\
-    mkdir /home/jenkins/composer-cache &&\
-    chown -R jenkins:jenkins /home/jenkins/composer-cache &&\
-    chmod -R 0700 /home/jenkins/composer-cache &&\
-    mkdir /home/jenkins/.npm &&\
-    chown -R jenkins:jenkins /home/jenkins/.npm &&\
-    chmod -R 0700 /home/jenkins/.npm &&\
-    mkdir /home/jenkins/bundler-cache &&\
-    chown -R jenkins:jenkins /home/jenkins/bundler-cache &&\
-    chmod -R 0700 /home/jenkins/bundler-cache
-
-VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/bundler-cache"]
 
 # Default command
 CMD ["/usr/sbin/sshd", "-D"]

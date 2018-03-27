@@ -10,8 +10,8 @@ RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
 # Preparations for sshd
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends locales
-RUN locale-gen en_US.UTF-8 de_DE.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-8
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends locales &&\
+    locale-gen en_US.UTF-8 de_DE.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-8
 
 # Setting language
 ENV LANG en_US.UTF-8
@@ -38,48 +38,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       openssh-server &&\
     mkdir -p /var/run/sshd
 
-
-# Install JDK (v8)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      openjdk-8-jre-headless
-
-
-# Install Ruby (v2.5)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      apt-transport-https \
-      ca-certificates \
-      software-properties-common &&\
-    add-apt-repository ppa:brightbox/ruby-ng &&\
-    apt-get update -q
-
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      ruby2.5 \
-      ruby2.5-dev
-
-# Update RubyGems and install Bundler
-RUN gem update --system --no-doc && gem install bundler --no-doc
-
-# Install nodejs (v8.10.0)
-RUN DEBIAN_FRONTEND="noninteractive" \
-    curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
-    tar -xJf "node-v8.10.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
-    ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v8.10.0-linux-x64.tar.xz
-
-# install particular npm version manually (see https://github.com/npm/npm/issues/18524)
-RUN DEBIAN_FRONTEND="noninteractive" \
-      curl -SLO https://registry.npmjs.org/npm/-/npm-5.7.1.tgz &&\
-      tar xzf npm-5.7.1.tgz &&\
-      cd package &&\
-      ./scripts/install.sh &&\
-      rm -rf /npm-5.7.1.tgz /package
-
-# Cleanup
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q clean -y &&\
-    rm -rf /var/lib/apt/lists/* &&\
-    rm -f /var/cache/apt/*.bin
-
 # Modify SSHD config
 ADD sshd/sshd_config /etc/ssh/sshd_config
 
@@ -101,6 +59,47 @@ RUN mkdir /home/jenkins/.ssh &&\
     chmod -R 0700 /home/jenkins/bundler-cache
 
 VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/bundler-cache"]
+
+
+# Install JDK (v8)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-8-jre-headless
+
+
+# Install Ruby (v2.5)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      apt-transport-https \
+      ca-certificates \
+      software-properties-common &&\
+    add-apt-repository ppa:brightbox/ruby-ng &&\
+    apt-get update -q
+
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      ruby2.5 \
+      ruby2.5-dev
+
+# Update RubyGems and install Bundler
+RUN gem update --system 2.7.4 --no-doc --no-post-install-message && gem install bundler --version=1.16.1 --no-doc --no-post-install-message
+
+# Install nodejs (v8.10.0)
+RUN DEBIAN_FRONTEND="noninteractive" curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
+    tar -xJf "node-v8.10.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+    ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
+    rm /node-v8.10.0-linux-x64.tar.xz
+
+# install particular npm version manually (see https://github.com/npm/npm/issues/18524)
+RUN DEBIAN_FRONTEND="noninteractive" \
+      curl -SLO https://registry.npmjs.org/npm/-/npm-5.7.1.tgz &&\
+      tar xzf npm-5.7.1.tgz &&\
+      cd package &&\
+      ./scripts/install.sh &&\
+      rm -rf /npm-5.7.1.tgz /package
+
+# Cleanup
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q clean -y &&\
+    rm -rf /var/lib/apt/lists/* &&\
+    rm -f /var/cache/apt/*.bin
 
 # Default command
 CMD ["/usr/sbin/sshd", "-D"]
