@@ -30,6 +30,7 @@ node-8_php-7.0_ruby-2.3:
     - php7.0-curl
     - php7.0-dba
     - php7.0-dom
+    - php7.0-gd
     - php7.0-mbstring
     - php7.0-SimpleXML
     - php7.0-soap
