@@ -1,4 +1,4 @@
-FROM ubuntu:xenial-20180412
+FROM ubuntu:bionic-20180410
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
 # Add user jenkins to the image
@@ -64,8 +64,9 @@ VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/bun
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
 
-
-# Install Ruby (v2.3)
+# Install PHP (php7.2-cli)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.2-cli            php7.2-bcmath          php7.2-bz2          php7.2-curl          php7.2-dba          php7.2-dom          php7.2-mbstring          php7.2-SimpleXML          php7.2-soap          php7.2-wddx          php7.2-xml          php7.2-xmlreader          php7.2-xmlwriter          php7.2-zip      
+# Install Ruby (v2.5)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
       ca-certificates \
@@ -74,11 +75,11 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      ruby2.3 \
-      ruby2.3-dev
+      ruby2.5 \
+      ruby2.5-dev
 
 # Update RubyGems and install Bundler
-RUN gem update --system 2.7.4 --no-doc --no-post-install-message && gem install bundler --version=1.16.1 --no-doc --no-post-install-message
+RUN gem update --system  --no-doc --no-post-install-message && gem install bundler --version= --no-doc --no-post-install-message
 
 # Install nodejs (v8.10.0)
 RUN DEBIAN_FRONTEND="noninteractive" curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
@@ -86,13 +87,6 @@ RUN DEBIAN_FRONTEND="noninteractive" curl -SLO "https://nodejs.org/dist/v8.10.0/
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.10.0-linux-x64.tar.xz
 
-# install particular npm version manually (see https://github.com/npm/npm/issues/18524)
-RUN DEBIAN_FRONTEND="noninteractive" \
-      curl -SLO https://registry.npmjs.org/npm/-/npm-5.7.1.tgz &&\
-      tar xzf npm-5.7.1.tgz &&\
-      cd package &&\
-      ./scripts/install.sh &&\
-      rm -rf /npm-5.7.1.tgz /package
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

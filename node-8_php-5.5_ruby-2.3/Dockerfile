@@ -1,6 +1,5 @@
-FROM ubuntu:trusty-20180302
-LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
-      maintainer.second="Michael Skrynski 'michael.skrynski@dkd.de'"
+FROM ubuntu:trusty-20180412
+LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
 # Add user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins

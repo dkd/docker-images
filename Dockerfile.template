@@ -1,7 +1,6 @@
 FROM ubuntu:<%= @data['system'] %>
 
-LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'" \
-      maintainer.second="Michael Skrynski 'michael.skrynski@dkd.de'"
+LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
 # Add user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
