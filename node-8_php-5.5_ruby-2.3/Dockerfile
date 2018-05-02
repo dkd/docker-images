@@ -1,4 +1,4 @@
-FROM ubuntu:trusty-20180412
+FROM ubuntu:trusty-20180420
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
 # Add user jenkins to the image

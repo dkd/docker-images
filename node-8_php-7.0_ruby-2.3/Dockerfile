@@ -1,4 +1,4 @@
-FROM ubuntu:xenial-20180412
+FROM ubuntu:xenial-20180417
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
 # Add user jenkins to the image
