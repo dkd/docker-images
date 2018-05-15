@@ -1,7 +1,7 @@
 # not working yet because Ruby installation fails
 node-8_php-7.2_ruby-2.5:
-  system: 'bionic-20180426'
-  jdk: 8
+  base_system: 'bionic-20180426'
+  jdk_version: 8
   php: php7.2-cli
   php_extensions:
     - php7.2-bcmath
@@ -17,12 +17,12 @@ node-8_php-7.2_ruby-2.5:
     - php7.2-xmlreader
     - php7.2-xmlwriter
     - php7.2-zip
-  ruby: 2.5
-  nodejs: 8.10.0
+  ruby_version: 2.5
+  nodejs_version: 8.10.0
 
 node-8_php-7.0_ruby-2.3:
-  system: 'xenial-20180417'
-  jdk: 8
+  base_system: 'xenial-20180417'
+  jdk_version: 8
   php: php7.0-cli
   php_extensions:
     - php7.0-bcmath
@@ -39,44 +39,41 @@ node-8_php-7.0_ruby-2.3:
     - php7.0-xmlreader
     - php7.0-xmlwriter
     - php7.0-zip
-  ruby: 2.3
+  ruby_version: 2.3
   rubygems_version: 2.7.4
   bundler_version: 1.16.1
-  nodejs: 8.10.0
-  npm: 5.7.1
+  nodejs_version: 8.10.0
+  npm_version: 5.7.1
 
 node-8_php-5.5_ruby-2.3:
-  system: 'trusty-20180420'
+  base_system: 'trusty-20180420'
   jdk_repo: 'ppa:openjdk-r/ppa'
-  jdk: 8
+  jdk_version: 8
   php: php5-cli
   php_extensions:
     - php5-common
     - php5-cli
     - php5-curl
-  ruby: 2.3
-  ruby_repo: 'ppa:brightbox/ruby-ng'
+  ruby_version: 2.3
   rubygems_version: 2.7.4
   bundler_version: 1.16.1
-  nodejs: 8.10.0
-  npm: 5.7.1
+  nodejs_version: 8.10.0
+  npm_version: 5.7.1
 
 node-8_ruby-2.5:
-  system: 'xenial-20180417'
-  jdk: 8
-  ruby: 2.5
-  ruby_repo: 'ppa:brightbox/ruby-ng'
+  base_system: 'xenial-20180417'
+  jdk_version: 8
+  ruby_version: 2.5
   rubygems_version: 2.7.4
   bundler_version: 1.16.1
-  nodejs: 8.10.0
-  npm: 5.7.1
+  nodejs_version: 8.10.0
+  npm_version: 5.7.1
 
 node-8_ruby-2.3:
-  system: 'xenial-20180417'
-  jdk: 8
-  ruby: 2.3
-  ruby_repo: 'ppa:brightbox/ruby-ng'
+  base_system: 'xenial-20180417'
+  jdk_version: 8
+  ruby_version: 2.3
   rubygems_version: 2.7.4
   bundler_version: 1.16.1
-  nodejs: 8.10.0
-  npm: 5.7.1
+  nodejs_version: 8.10.0
+  npm_version: 5.7.1

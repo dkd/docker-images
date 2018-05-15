@@ -1,4 +1,4 @@
-FROM ubuntu:xenial-20180417
+FROM ubuntu:<%= base_system %>
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -38,13 +38,29 @@ RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm
 
 # VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/.npm", "/home/jenkins/bundler-cache"]
 
-
-# Install JDK (v8)
+<% if defined? jdk_repo %>
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      openjdk-8-jre-headless
+      apt-transport-https \
+      ca-certificates \
+      software-properties-common &&\
+    DEBIAN_FRONTEND="noninteractive" add-apt-repository <%= jdk_repo %> &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get update -q
+<% end %>
 
+# Install JDK (v<%= jdk_version %>)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-<%= jdk_version %>-jre-headless
 
-# Install Ruby (v2.3)
+<% if defined? php %>
+# Install PHP (<%= php %>)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends <%= php %> \
+  <% if php_extensions %>
+    <%= php_extensions.join(' ') %>
+  <% end %>
+<% end %>
+
+<% if defined? ruby_version %>
+# Install Ruby (v<%= ruby_version %>)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
       ca-certificates \
@@ -53,21 +69,28 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      ruby2.3 \
-      ruby2.3-dev
+      ruby<%= ruby_version %> \
+      ruby<%= ruby_version %>-dev
 
+<% if defined?(rubygems_version) && defined?(bundler_version) %>
 # Update RubyGems and install Bundler
-RUN gem update --system 2.7.4 --no-doc --no-post-install-message &&\
-    gem install bundler --version=1.16.1 --no-doc --no-post-install-message
+RUN gem update --system <%= rubygems_version %> --no-doc --no-post-install-message &&\
+    gem install bundler --version=<%= bundler_version %> --no-doc --no-post-install-message
+<% end %>
+<% end %>
 
-# Install NodeJS (v8.10.0)
-RUN curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
-    tar -xJf "node-v8.10.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+<% if defined? nodejs_version %>
+# Install NodeJS (v<%= nodejs_version %>)
+RUN curl -SLO "https://nodejs.org/dist/v<%= nodejs_version %>/node-v<%= nodejs_version %>-linux-x64.tar.xz" &&\
+    tar -xJf "node-v<%= nodejs_version %>-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v8.10.0-linux-x64.tar.xz
+    rm /node-v<%= nodejs_version %>-linux-x64.tar.xz
 
-# Install npm (v5.7.1)
-RUN npm install -g npm@5.7.1
+<% if defined? npm_version %>
+# Install npm (v<%= npm_version %>)
+RUN npm install -g npm@<%= npm_version %>
+<% end %>
+<% end %>
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

@@ -2,12 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     rake (12.3.1)
+    tilt (2.0.8)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   rake
+  tilt
 
 BUNDLED WITH
    1.16.1
