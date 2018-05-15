@@ -23,8 +23,9 @@ task :build do
   data.each do |key, values|
     FileUtils.mkdir_p key
 
+    variables = values.merge(dockerhub_organisation: DOCKERHUB_ORGANIZATION, container_name: CONTAINER_NAME, container_tag: key)
     template = Tilt.new(File.join(__dir__, DOCKER_TEMPLATE))
-    dockerfile_content = template.render nil, values
+    dockerfile_content = template.render nil, variables
 
     File.write(File.join(__dir__, key, 'Dockerfile'), dockerfile_content)
   end

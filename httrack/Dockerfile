@@ -18,6 +18,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       openjdk-8-jre-headless \
       httrack \
       git-core \
+      openssh-client \
       lftp
 
 # Add user jenkins to the image

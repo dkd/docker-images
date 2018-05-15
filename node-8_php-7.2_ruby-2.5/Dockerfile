@@ -1,3 +1,4 @@
+# dkdde/jenkins-worker:node-8_php-7.2_ruby-2.5
 FROM ubuntu:bionic-20180426
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
@@ -17,6 +18,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     locale-gen en_US.UTF-8 de_DE.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-8
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openssh-client \
       curl \
       locales \
       git-core \

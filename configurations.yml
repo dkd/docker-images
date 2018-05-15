@@ -1,4 +1,3 @@
-# not working yet because Ruby installation fails
 node-8_php-7.2_ruby-2.5:
   base_system: 'bionic-20180426'
   jdk_version: 8
