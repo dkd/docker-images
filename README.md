@@ -4,7 +4,7 @@ Create multiple Docker images for Jenkins.
 
 ## Adding images
 
-- modify `template.yml` to your needs
+- modify `configurations.yml` to your needs
 - run `rake`
 
 ## Mounting images
