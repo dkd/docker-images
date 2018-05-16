@@ -3,7 +3,6 @@ require 'yaml'
 require 'erb'
 require 'tilt'
 require 'fileutils'
-require 'english'
 
 DOCKERHUB_ORGANIZATION = 'dkdde'.freeze
 CONTAINER_NAME = 'jenkins-worker'.freeze
@@ -19,7 +18,7 @@ end
 
 desc 'create Dockerfiles'
 task :build do
-  data = YAML.load_file("#{__dir__}/#{YAML_FILE}")
+  data = YAML.load_file(File.join(__dir__, YAML_FILE))
   data.each do |key, values|
     FileUtils.mkdir_p key
 
@@ -33,13 +32,13 @@ end
 
 desc 'compile Dockerfiles to Docker images'
 task :compile do
-  data = YAML.load_file("#{__dir__}/#{YAML_FILE}")
+  data = YAML.load_file(File.join(__dir__, YAML_FILE))
   data.each_key do |key|
     puts LINE_SEPARATOR
     puts "#{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key}"
     puts "docker build -t #{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key} #{key} --compress --squash"
     puts LINE_SEPARATOR
-    system("docker build -t #{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key} #{key} --compress --squash")
-    raise('Exit due to error!') unless $CHILD_STATUS.success?
+
+    raise('Exit due to error!') unless system("docker build -t #{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key} #{key} --compress --squash")
   end
 end
