@@ -38,8 +38,6 @@ RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm
     chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
     chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache}
 
-# VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/.npm", "/home/jenkins/bundler-cache"]
-
 <% if defined? jdk_repo %>
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
@@ -56,9 +54,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 <% if defined? php %>
 # Install PHP (<%= php %>)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends <%= php %> \
-  <% if php_extensions %>
+  <% if defined? php_extensions -%>
     <%= php_extensions.join(' ') %>
-  <% end %>
+  <% end -%>
 <% end %>
 
 <% if defined? ruby_version %>

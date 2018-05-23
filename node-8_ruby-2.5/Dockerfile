@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-8_ruby-2.5
-FROM ubuntu:xenial-20180417
+FROM ubuntu:bionic-20180426
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -38,8 +38,6 @@ RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm
     chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
     chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache}
 
-# VOLUME ["/home/jenkins/.ssh", "/home/jenkins/composer-cache", "/home/jenkins/.npm", "/home/jenkins/bundler-cache"]
-
 
 # Install JDK (v8)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
@@ -58,9 +56,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       ruby2.5 \
       ruby2.5-dev
 
-# Update RubyGems and install Bundler
-RUN gem update --system 2.7.4 --no-doc --no-post-install-message &&\
-    gem install bundler --version=1.16.1 --no-doc --no-post-install-message
 
 # Install NodeJS (v8.10.0)
 RUN curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
