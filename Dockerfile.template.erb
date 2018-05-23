@@ -38,7 +38,7 @@ RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm
     chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
     chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache}
 
-<% if defined? jdk_repo %>
+<% if defined?(jdk_repo) %>
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
       ca-certificates \
@@ -51,15 +51,15 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-<%= jdk_version %>-jre-headless
 
-<% if defined? php %>
+<% if defined?(php) %>
 # Install PHP (<%= php %>)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends <%= php %> \
-  <% if defined? php_extensions -%>
-    <%= php_extensions.join(' ') %>
-  <% end -%>
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends <%= php -%> \
+  <% if defined?(php_extensions) %>
+    <%= php_extensions.join(' ') -%>
+  <% end %>
 <% end %>
 
-<% if defined? ruby_version %>
+<% if defined?(ruby_version) %>
 # Install Ruby (v<%= ruby_version %>)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       apt-transport-https \
@@ -79,14 +79,14 @@ RUN gem update --system <%= rubygems_version %> --no-doc --no-post-install-messa
 <% end %>
 <% end %>
 
-<% if defined? nodejs_version %>
+<% if defined?(nodejs_version) %>
 # Install NodeJS (v<%= nodejs_version %>)
 RUN curl -SLO "https://nodejs.org/dist/v<%= nodejs_version %>/node-v<%= nodejs_version %>-linux-x64.tar.xz" &&\
     tar -xJf "node-v<%= nodejs_version %>-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v<%= nodejs_version %>-linux-x64.tar.xz
 
-<% if defined? npm_version %>
+<% if defined?(npm_version) %>
 # Install npm (v<%= npm_version %>)
 RUN npm install -g npm@<%= npm_version %>
 <% end %>
