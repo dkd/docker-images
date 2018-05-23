@@ -1,6 +1,6 @@
 require 'rake'
 require 'yaml'
-require 'erb'
+require 'erubi'
 require 'tilt'
 require 'fileutils'
 
