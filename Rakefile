@@ -22,7 +22,7 @@ task :build do
   data.each do |key, values|
     FileUtils.mkdir_p key
 
-    variables = values.merge(dockerhub_organisation: DOCKERHUB_ORGANIZATION, container_name: CONTAINER_NAME, container_tag: key)
+    variables = values.merge dockerhub_organisation: DOCKERHUB_ORGANIZATION, container_name: CONTAINER_NAME, container_tag: key
     template = Tilt.new(File.join(__dir__, DOCKER_TEMPLATE))
     dockerfile_content = template.render nil, variables
 
@@ -34,11 +34,17 @@ desc 'compile Dockerfiles to Docker images'
 task :compile do
   data = YAML.load_file(File.join(__dir__, YAML_FILE))
   data.each_key do |key|
+    container_name = "#{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key}"
     puts LINE_SEPARATOR
-    puts "#{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key}"
-    puts "docker build -t #{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key} #{key} --compress --squash"
+    puts container_name
+    puts "docker build -t #{container_name} #{key} --compress --squash"
     puts LINE_SEPARATOR
 
-    raise('Exit due to error!') unless system("docker build -t #{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key} #{key} --compress --squash")
+    raise('Premature exit due to error!') unless system("docker build -t #{container_name} #{key} --compress --squash")
+  end
+
+  data.each_key do |key|
+    container_name = "#{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key}"
+    puts "docker push #{container_name}"
   end
 end

@@ -1,0 +1,12 @@
+AllCops:
+  DefaultFormatter: fuubar
+  TargetRubyVersion: 2.5
+  ExtraDetails: true
+  DisplayStyleGuide: true
+  DisplayCopNames: true
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120

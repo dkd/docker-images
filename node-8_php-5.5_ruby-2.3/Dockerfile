@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-8_php-5.5_ruby-2.3
-FROM ubuntu:trusty-20180420
+FROM ubuntu:trusty-20180531
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -75,8 +75,8 @@ RUN curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.10.0-linux-x64.tar.xz
 
-# Install npm (v5.7.1)
-RUN npm install -g npm@5.7.1
+# Install npm (v6.1.0)
+RUN npm install -g npm@6.1.0
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
