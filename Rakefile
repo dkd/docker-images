@@ -8,7 +8,6 @@ DOCKERHUB_ORGANIZATION = 'dkdde'.freeze
 CONTAINER_NAME = 'jenkins-worker'.freeze
 DOCKER_TEMPLATE = 'Dockerfile.template.erb'.freeze
 YAML_FILE = 'configurations.yml'.freeze
-LINE_SEPARATOR = ('=' * 80).freeze
 
 desc 'start the whole compilcation process'
 task :default do
@@ -35,16 +34,18 @@ task :compile do
   data = YAML.load_file(File.join(__dir__, YAML_FILE))
   data.each_key do |key|
     container_name = "#{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key}"
-    puts LINE_SEPARATOR
-    puts container_name
-    puts "docker build -t #{container_name} #{key} --compress --squash"
-    puts LINE_SEPARATOR
-
     raise('Premature exit due to error!') unless system("docker build -t #{container_name} #{key} --compress --squash")
   end
+end
 
+desc 'show Docker commmands to build images'
+task :dryrun do
+  data = YAML.load_file(File.join(__dir__, YAML_FILE))
   data.each_key do |key|
     container_name = "#{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key}"
-    puts "docker push #{container_name}"
+    puts
+    puts "Container: #{container_name}"
+    puts "  docker build -t #{container_name} #{key} --compress --squash"
+    puts "  docker push #{container_name}"
   end
 end

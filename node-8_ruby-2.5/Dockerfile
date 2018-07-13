@@ -56,6 +56,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       ruby2.5 \
       ruby2.5-dev
 
+# Update RubyGems and install Bundler
+RUN gem update --system 2.7.4 --no-doc --no-post-install-message &&\
+    gem install bundler --version=1.16.2 --no-doc --no-post-install-message
 
 # Install NodeJS (v8.10.0)
 RUN curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
