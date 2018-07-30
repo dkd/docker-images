@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-8_php-7.2_ruby-2.5
-FROM ubuntu:bionic-20180710
+FROM ubuntu:bionic-20180724.1
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -61,13 +61,13 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 
 # Update RubyGems and install Bundler
 RUN gem update --system 2.7.4 --no-doc --no-post-install-message &&\
-    gem install bundler --version=1.16.2 --no-doc --no-post-install-message
+    gem install bundler --version=1.16.3 --no-doc --no-post-install-message
 
-# Install NodeJS (v8.10.0)
-RUN curl -SLO "https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz" &&\
-    tar -xJf "node-v8.10.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v8.11.3)
+RUN curl -SLO "https://nodejs.org/dist/v8.11.3/node-v8.11.3-linux-x64.tar.xz" &&\
+    tar -xJf "node-v8.11.3-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v8.10.0-linux-x64.tar.xz
+    rm /node-v8.11.3-linux-x64.tar.xz
 
 
 # Cleanup

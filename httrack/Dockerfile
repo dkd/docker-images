@@ -1,4 +1,4 @@
-FROM ubuntu:xenial-20180525
+FROM ubuntu:xenial-20180726
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -29,7 +29,3 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q clean -y &&\
     rm -rf /var/lib/apt/lists/* &&\
     rm -f /var/cache/apt/*.bin
-
-RUN mkdir -p /home/jenkins/.ssh &&\
-    chown -R jenkins:jenkins /home/jenkins/.ssh &&\
-    chmod -R 0700 /home/jenkins/.ssh
