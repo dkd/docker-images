@@ -34,6 +34,7 @@ task :compile do
   data = YAML.load_file(File.join(__dir__, YAML_FILE))
   data.each_key do |key|
     container_name = "#{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key}"
+    puts "Container: #{container_name}"
     raise('Premature exit due to error!') unless system("docker build -t #{container_name} #{key} --compress --squash")
   end
 end

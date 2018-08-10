@@ -20,8 +20,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
       curl \
+      unzip \
       locales \
-      git-core \
       libxslt-dev \
       libxml2-dev \
       libmysqlclient-dev \
@@ -32,6 +32,16 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       imagemagick \
       libmagickwand-dev \
       net-tools
+
+# Install Git
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      apt-transport-https \
+      ca-certificates \
+      software-properties-common &&\
+    add-apt-repository ppa:git-core/ppa &&\
+    apt-get update -q
+
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
 # Create local cache directories
 RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
@@ -59,8 +69,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       ruby2.3 \
       ruby2.3-dev
 
-# Update RubyGems and install Bundler
-RUN gem update --system 2.7.4 --no-doc --no-post-install-message &&\
+# Install Rake, update RubyGems and install Bundler
+RUN gem install rake --version=12.3.1 --no-doc --no-post-install-message &&\
+    gem update --system 2.7.4 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.16.3 --no-doc --no-post-install-message
 
 # Install NodeJS (v8.11.3)
@@ -69,8 +80,8 @@ RUN curl -SLO "https://nodejs.org/dist/v8.11.3/node-v8.11.3-linux-x64.tar.xz" &&
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.11.3-linux-x64.tar.xz
 
-# Install npm (v6.2.0)
-RUN npm install -g npm@6.2.0
+# Install npm (v6.3.0)
+RUN npm install -g npm@6.3.0
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

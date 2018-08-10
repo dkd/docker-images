@@ -17,9 +17,11 @@ node-8_php-7.2_ruby-2.5:
     - php7.2-xmlwriter
     - php7.2-zip
   ruby_version: 2.5
+  rake_version: 12.3.1
   rubygems_version: 2.7.4
   bundler_version: 1.16.3
   nodejs_version: 8.11.3
+  npm_version: 6.3.0
 
 node-8_php-7.0_ruby-2.3:
   base_system: 'xenial-20180726'
@@ -41,10 +43,11 @@ node-8_php-7.0_ruby-2.3:
     - php7.0-xmlwriter
     - php7.0-zip
   ruby_version: 2.3
+  rake_version: 12.3.1
   rubygems_version: 2.7.4
   bundler_version: 1.16.3
   nodejs_version: 8.11.3
-  npm_version: 6.2.0
+  npm_version: 6.3.0
 
 node-8_php-5.5_ruby-2.3:
   base_system: 'trusty-20180712'
@@ -56,25 +59,28 @@ node-8_php-5.5_ruby-2.3:
     - php5-cli
     - php5-curl
   ruby_version: 2.3
+  rake_version: 12.3.1
   rubygems_version: 2.7.4
   bundler_version: 1.16.3
   nodejs_version: 8.11.3
-  npm_version: 6.2.0
+  npm_version: 6.3.0
 
 node-8_ruby-2.5:
   base_system: 'bionic-20180724.1'
   jdk_version: 8
   ruby_version: 2.5
+  rake_version: 12.3.1
   rubygems_version: 2.7.4
   bundler_version: 1.16.3
   nodejs_version: 8.11.3
-  npm_version: 6.2.0
+  npm_version: 6.3.0
 
 node-8_ruby-2.3:
   base_system: 'xenial-20180726'
   jdk_version: 8
   ruby_version: 2.3
+  rake_version: 12.3.1
   rubygems_version: 2.7.4
-  bundler_version: 1.16.2
+  bundler_version: 1.16.3
   nodejs_version: 8.11.3
-  npm_version: 6.2.0
+  npm_version: 6.3.0

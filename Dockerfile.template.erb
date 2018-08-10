@@ -20,8 +20,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
       curl \
+      unzip \
       locales \
-      git-core \
       libxslt-dev \
       libxml2-dev \
       libmysqlclient-dev \
@@ -32,6 +32,16 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       imagemagick \
       libmagickwand-dev \
       net-tools
+
+# Install Git
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      apt-transport-https \
+      ca-certificates \
+      software-properties-common &&\
+    add-apt-repository ppa:git-core/ppa &&\
+    apt-get update -q
+
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
 # Create local cache directories
 RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
@@ -72,9 +82,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       ruby<%= ruby_version %> \
       ruby<%= ruby_version %>-dev
 
-<% if defined?(rubygems_version) && defined?(bundler_version) %>
-# Update RubyGems and install Bundler
-RUN gem update --system <%= rubygems_version %> --no-doc --no-post-install-message &&\
+<% if defined?(rake_version) && defined?(rubygems_version) && defined?(bundler_version) %>
+# Install Rake, update RubyGems and install Bundler
+RUN gem install rake --version=<%= rake_version %> --no-doc --no-post-install-message &&\
+    gem update --system <%= rubygems_version %> --no-doc --no-post-install-message &&\
     gem install bundler --version=<%= bundler_version %> --no-doc --no-post-install-message
 <% end %>
 <% end %>
