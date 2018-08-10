@@ -1,5 +1,17 @@
+_default: &_default
+  rake_version: 12.3.1
+  rubygems_version: 2.7.4
+  bundler_version: 1.16.3
+  nodejs_version: 8.11.3
+  npm_version: 6.3.0
+
+_bionic: &_bionic bionic-20180724.1
+_xenial: &_xenial xenial-20180726
+_trusty: &_trusty trusty-20180712
+
 node-8_php-7.2_ruby-2.5:
-  base_system: 'bionic-20180724.1'
+  <<: *_default
+  base_system: *_bionic
   jdk_version: 8
   php: php7.2-cli
   php_extensions:
@@ -17,14 +29,10 @@ node-8_php-7.2_ruby-2.5:
     - php7.2-xmlwriter
     - php7.2-zip
   ruby_version: 2.5
-  rake_version: 12.3.1
-  rubygems_version: 2.7.4
-  bundler_version: 1.16.3
-  nodejs_version: 8.11.3
-  npm_version: 6.3.0
 
 node-8_php-7.0_ruby-2.3:
-  base_system: 'xenial-20180726'
+  <<: *_default
+  base_system: *_xenial
   jdk_version: 8
   php: php7.0-cli
   php_extensions:
@@ -43,14 +51,10 @@ node-8_php-7.0_ruby-2.3:
     - php7.0-xmlwriter
     - php7.0-zip
   ruby_version: 2.3
-  rake_version: 12.3.1
-  rubygems_version: 2.7.4
-  bundler_version: 1.16.3
-  nodejs_version: 8.11.3
-  npm_version: 6.3.0
 
 node-8_php-5.5_ruby-2.3:
-  base_system: 'trusty-20180712'
+  <<: *_default
+  base_system: *_trusty
   jdk_repo: 'ppa:openjdk-r/ppa'
   jdk_version: 8
   php: php5-cli
@@ -59,28 +63,15 @@ node-8_php-5.5_ruby-2.3:
     - php5-cli
     - php5-curl
   ruby_version: 2.3
-  rake_version: 12.3.1
-  rubygems_version: 2.7.4
-  bundler_version: 1.16.3
-  nodejs_version: 8.11.3
-  npm_version: 6.3.0
 
 node-8_ruby-2.5:
-  base_system: 'bionic-20180724.1'
+  <<: *_default
+  base_system: *_bionic
   jdk_version: 8
   ruby_version: 2.5
-  rake_version: 12.3.1
-  rubygems_version: 2.7.4
-  bundler_version: 1.16.3
-  nodejs_version: 8.11.3
-  npm_version: 6.3.0
 
 node-8_ruby-2.3:
-  base_system: 'xenial-20180726'
+  <<: *_default
+  base_system: *_xenial
   jdk_version: 8
   ruby_version: 2.3
-  rake_version: 12.3.1
-  rubygems_version: 2.7.4
-  bundler_version: 1.16.3
-  nodejs_version: 8.11.3
-  npm_version: 6.3.0
