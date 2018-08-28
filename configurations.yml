@@ -1,13 +1,13 @@
 _default: &_default
   rake_version: 12.3.1
-  rubygems_version: 2.7.4
-  bundler_version: 1.16.3
-  nodejs_version: 8.11.3
-  npm_version: 6.3.0
+  rubygems_version: 2.7.7
+  bundler_version: 1.16.4
+  nodejs_version: 8.11.4
+  npm_version: 6.4.0
 
-_bionic: &_bionic bionic-20180724.1
-_xenial: &_xenial xenial-20180726
-_trusty: &_trusty trusty-20180712
+_bionic: &_bionic bionic-20180821
+_xenial: &_xenial xenial-20180808
+_trusty: &_trusty trusty-20180807
 
 node-8_php-7.2_ruby-2.5:
   <<: *_default

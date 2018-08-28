@@ -1,4 +1,4 @@
-FROM ubuntu:xenial-20180726
+FROM ubuntu:xenial-20180807
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -6,6 +6,9 @@ LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+
+# Add user jenkins to the image
+RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
@@ -20,9 +23,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
       git-core \
       openssh-client \
       lftp
-
-# Add user jenkins to the image
-RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
