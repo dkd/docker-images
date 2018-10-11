@@ -69,7 +69,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=12.3.1 --no-doc --no-post-install-message &&\
     gem update --system 2.7.7 --no-doc --no-post-install-message &&\
-    gem install bundler --version=1.16.5 --no-doc --no-post-install-message
+    gem install bundler --version=1.16.6 --no-doc --no-post-install-message
 
 # Install NodeJS (v8.12.0)
 RUN curl -SLO "https://nodejs.org/dist/v8.12.0/node-v8.12.0-linux-x64.tar.xz" &&\
