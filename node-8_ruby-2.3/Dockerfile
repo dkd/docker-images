@@ -19,6 +19,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
+      wget \
       curl \
       unzip \
       locales \
