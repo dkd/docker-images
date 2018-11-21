@@ -1,4 +1,4 @@
-FROM ubuntu:xenial-20181005
+FROM ubuntu:xenial-20181113
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -17,6 +17,8 @@ RUN locale-gen en_US.UTF-8 de_DE.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless \
+      wget \
+      curl \
       httrack \
       git-core \
       openssh-client \

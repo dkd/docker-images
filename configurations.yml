@@ -5,9 +5,9 @@ _default: &_default
   nodejs_version: 8.12.0
   npm_version: 6.4.1
 
-_bionic: &_bionic bionic-20181018
-_xenial: &_xenial xenial-20181005
-_trusty: &_trusty trusty-20180929
+_bionic: &_bionic bionic-20181112
+_xenial: &_xenial xenial-20181113
+_trusty: &_trusty trusty-20181115
 
 node-8_php-7.2_ruby-2.5:
   <<: *_default

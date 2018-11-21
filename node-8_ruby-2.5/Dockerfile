@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-8_ruby-2.5
-FROM ubuntu:bionic-20181018
+FROM ubuntu:bionic-20181112
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
