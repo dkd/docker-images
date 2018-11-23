@@ -1,24 +1,30 @@
-_default: &_default
+_image_defaults: &_image_defaults
   rake_version: 12.3.1
   rubygems_version: 2.7.8
   bundler_version: 1.17.1
   npm_version: 6.4.1
+  jdk_version: 8
 
-_bionic: &_bionic bionic-20181112
-_xenial: &_xenial xenial-20181113
-_trusty: &_trusty trusty-20181115
-
-_nodejs8_version: &_nodejs8_version 8.12.0
-_nodejs10_version: &_nodejs10_version 10.13.0
-
-_ruby23: &_ruby23 2.3
-_ruby25: &_ruby25 2.5
+_options:
+  os:
+    bionic: &bionic bionic-20181112
+    xenial: &xenial xenial-20181113
+    trusty: &trusty trusty-20181115
+  nodejs:
+    nodejs8_version: &nodejs8 8.12.0
+    nodejs10_version: &nodejs10 10.13.0
+  ruby:
+    ruby23_version: &ruby23 2.3
+    ruby25_version: &ruby25 2.5
+  php:
+    php5: &php5 php5-cli
+    php70: &php70 php7.0-cli
+    php72: &php72 php7.2-cli
 
 node-10_php-7.2_ruby-2.5:
-  <<: *_default
-  base_system: *_bionic
-  jdk_version: 8
-  php: php7.2-cli
+  base_system: *bionic
+  <<: *_image_defaults
+  php: *php72
   php_extensions:
     - php7.2-bcmath
     - php7.2-bz2
@@ -33,14 +39,13 @@ node-10_php-7.2_ruby-2.5:
     - php7.2-xmlreader
     - php7.2-xmlwriter
     - php7.2-zip
-  ruby_version: 2.5
-  nodejs_version: *_nodejs10_version
+  ruby_version: *ruby25
+  nodejs_version: *nodejs10
 
 node-8_php-7.2_ruby-2.5:
-  <<: *_default
-  base_system: *_bionic
-  jdk_version: 8
-  php: php7.2-cli
+  base_system: *bionic
+  <<: *_image_defaults
+  php: *php72
   php_extensions:
     - php7.2-bcmath
     - php7.2-bz2
@@ -55,14 +60,13 @@ node-8_php-7.2_ruby-2.5:
     - php7.2-xmlreader
     - php7.2-xmlwriter
     - php7.2-zip
-  ruby_version: 2.5
-  nodejs_version: *_nodejs8_version
+  ruby_version: *ruby25
+  nodejs_version: *nodejs8
 
 node-10_php-7.0_ruby-2.3:
-  <<: *_default
-  base_system: *_xenial
-  jdk_version: 8
-  php: php7.0-cli
+  base_system: *xenial
+  <<: *_image_defaults
+  php: *php70
   php_extensions:
     - php7.0-bcmath
     - php7.0-bz2
@@ -78,14 +82,13 @@ node-10_php-7.0_ruby-2.3:
     - php7.0-xmlreader
     - php7.0-xmlwriter
     - php7.0-zip
-  ruby_version: 2.3
-  nodejs_version: *_nodejs10_version
+  ruby_version: *ruby23
+  nodejs_version: *nodejs10
 
 node-8_php-7.0_ruby-2.3:
-  <<: *_default
-  base_system: *_xenial
-  jdk_version: 8
-  php: php7.0-cli
+  base_system: *xenial
+  <<: *_image_defaults
+  php: *php70
   php_extensions:
     - php7.0-bcmath
     - php7.0-bz2
@@ -101,39 +104,29 @@ node-8_php-7.0_ruby-2.3:
     - php7.0-xmlreader
     - php7.0-xmlwriter
     - php7.0-zip
-  ruby_version: 2.3
-  nodejs_version: *_nodejs8_version
+  ruby_version: *ruby23
+  nodejs_version: *nodejs8
 
 node-8_php-5.5_ruby-2.3:
-  <<: *_default
-  base_system: *_trusty
+  base_system: *trusty
+  <<: *_image_defaults
   jdk_repo: 'ppa:openjdk-r/ppa'
-  jdk_version: 8
-  php: php5-cli
+  php: *php5
   php_extensions:
     - php5-common
     - php5-cli
     - php5-curl
-  ruby_version: 2.3
-  nodejs_version: *_nodejs8_version
+  ruby_version: *ruby23
+  nodejs_version: *nodejs8
 
 node-10_ruby-2.5:
-  <<: *_default
-  base_system: *_bionic
-  jdk_version: 8
-  ruby_version: 2.5
-  nodejs_version: *_nodejs10_version
-
-node-8_ruby-2.5:
-  <<: *_default
-  base_system: *_bionic
-  jdk_version: 8
-  ruby_version: 2.5
-  nodejs_version: *_nodejs8_version
+  base_system: *bionic
+  <<: *_image_defaults
+  ruby_version: *ruby25
+  nodejs_version: *nodejs10
 
 node-8_ruby-2.3:
-  <<: *_default
-  base_system: *_xenial
-  jdk_version: 8
-  ruby_version: 2.3
-  nodejs_version: *_nodejs8_version
+  <<: *_image_defaults
+  base_system: *xenial
+  ruby_version: *ruby23
+  nodejs_version: *nodejs8

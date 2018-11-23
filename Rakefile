@@ -58,3 +58,13 @@ task :dryrun do
     puts "  docker push #{container_name}"
   end
 end
+
+desc 'upload images to DockerHub'
+task :upload do
+  load_configurations.each_key do |key|
+    container_name = "#{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key}"
+    puts
+    puts "Container: #{container_name(key)}"
+    system "docker push #{container_name}"
+  end
+end
