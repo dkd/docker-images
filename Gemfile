@@ -4,4 +4,5 @@ source 'https://rubygems.org'
 
 gem 'erubi'
 gem 'rake'
+gem 'rubocop'
 gem 'tilt'
