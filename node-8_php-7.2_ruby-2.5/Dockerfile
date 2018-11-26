@@ -41,9 +41,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       ca-certificates \
       software-properties-common &&\
     add-apt-repository ppa:git-core/ppa &&\
-    apt-get update -q
-
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
+    apt-get update -q &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
 # Create local cache directories
 RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
@@ -60,14 +59,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-mbstring php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
 
 # Install Ruby (v2.5)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      apt-transport-https \
-      ca-certificates \
-      software-properties-common &&\
-    add-apt-repository ppa:brightbox/ruby-ng &&\
-    apt-get update -q
-
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+RUN add-apt-repository ppa:brightbox/ruby-ng &&\
+    apt-get update -q &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby2.5 \
       ruby2.5-dev
 

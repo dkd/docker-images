@@ -41,9 +41,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       ca-certificates \
       software-properties-common &&\
     add-apt-repository ppa:git-core/ppa &&\
-    apt-get update -q
-
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
+    apt-get update -q &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
 # Create local cache directories
 RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
@@ -51,11 +50,7 @@ RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm
     chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache}
 
 <% if defined?(jdk_repo) %>
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      apt-transport-https \
-      ca-certificates \
-      software-properties-common &&\
-    DEBIAN_FRONTEND="noninteractive" add-apt-repository <%= jdk_repo %> &&\
+RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository <%= jdk_repo %> &&\
     DEBIAN_FRONTEND="noninteractive" apt-get update -q
 <% end %>
 
@@ -73,14 +68,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 
 <% if defined?(ruby_version) %>
 # Install Ruby (v<%= ruby_version %>)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      apt-transport-https \
-      ca-certificates \
-      software-properties-common &&\
-    add-apt-repository ppa:brightbox/ruby-ng &&\
-    apt-get update -q
-
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+RUN add-apt-repository ppa:brightbox/ruby-ng &&\
+    apt-get update -q &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby<%= ruby_version %> \
       ruby<%= ruby_version %>-dev
 
