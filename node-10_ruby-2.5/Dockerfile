@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-10_ruby-2.5
-FROM ubuntu:bionic-20181112
+FROM ubuntu:bionic-20181204
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -65,16 +65,16 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=12.3.2 --no-doc --no-post-install-message &&\
     gem update --system 2.7.8 --no-doc --no-post-install-message &&\
-    gem install bundler --version=1.17.2 --no-doc --no-post-install-message
+    gem install bundler --version=1.17.3 --no-doc --no-post-install-message
 
-# Install NodeJS (v10.14.2)
-RUN curl -SLO "https://nodejs.org/dist/v10.14.2/node-v10.14.2-linux-x64.tar.xz" &&\
-    tar -xJf "node-v10.14.2-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v10.15.0)
+RUN curl -SLO "https://nodejs.org/dist/v10.15.0/node-v10.15.0-linux-x64.tar.xz" &&\
+    tar -xJf "node-v10.15.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v10.14.2-linux-x64.tar.xz
+    rm /node-v10.15.0-linux-x64.tar.xz
 
-# Install npm (v6.4.1)
-RUN npm install -g npm@6.4.1
+# Install npm (v6.5.0)
+RUN npm install -g npm@6.5.0
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
