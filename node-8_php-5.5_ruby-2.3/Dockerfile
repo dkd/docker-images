@@ -69,7 +69,7 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=12.3.2 --no-doc --no-post-install-message &&\
-    gem update --system 2.7.8 --no-doc --no-post-install-message &&\
+    gem update --system 3.0.2 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message
 
 # Install NodeJS (v8.15.0)

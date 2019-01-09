@@ -1,6 +1,6 @@
 _image_defaults: &_image_defaults
   rake_version: 12.3.2
-  rubygems_version: 2.7.8
+  rubygems_version: 3.0.2
   bundler_version: 1.17.3
   npm_version: 6.5.0
   jdk_version: 8
