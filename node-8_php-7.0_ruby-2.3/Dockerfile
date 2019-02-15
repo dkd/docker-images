@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-8_php-7.0_ruby-2.3
-FROM ubuntu:xenial-20181218
+FROM ubuntu:xenial-20190122
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -68,7 +68,7 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=12.3.2 --no-doc --no-post-install-message &&\
     gem update --system 3.0.2 --no-doc --no-post-install-message &&\
-    gem install bundler --version=1.17.3 --no-doc --no-post-install-message
+    gem install bundler --version=2.0.1 --no-doc --no-post-install-message
 
 # Install NodeJS (v8.15.0)
 RUN curl -SLO "https://nodejs.org/dist/v8.15.0/node-v8.15.0-linux-x64.tar.xz" &&\
@@ -76,8 +76,8 @@ RUN curl -SLO "https://nodejs.org/dist/v8.15.0/node-v8.15.0-linux-x64.tar.xz" &&
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.15.0-linux-x64.tar.xz
 
-# Install npm (v6.5.0)
-RUN npm install -g npm@6.5.0
+# Install npm (v6.8.0)
+RUN npm install -g npm@6.8.0
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

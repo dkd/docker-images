@@ -1,18 +1,18 @@
 _image_defaults: &_image_defaults
   rake_version: 12.3.2
   rubygems_version: 3.0.2
-  bundler_version: 1.17.3
-  npm_version: 6.5.0
+  bundler_version: 2.0.1
+  npm_version: 6.8.0
   jdk_version: 8
 
 _options:
   os:
-    bionic: &bionic bionic-20181204
-    xenial: &xenial xenial-20181218
-    trusty: &trusty trusty-20181217
+    bionic: &bionic bionic-20190204
+    xenial: &xenial xenial-20190122
+    trusty: &trusty trusty-20190122
   nodejs:
     nodejs8_version: &nodejs8 8.15.0
-    nodejs10_version: &nodejs10 10.15.0
+    nodejs10_version: &nodejs10 10.15.1
   ruby:
     ruby23_version: &ruby23 2.3
     ruby25_version: &ruby25 2.5
