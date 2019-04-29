@@ -63,6 +63,27 @@ node-8_php-7.2_ruby-2.5:
   ruby_version: *ruby25
   nodejs_version: *nodejs8
 
+node-10_php-7.2_ruby-2.3:
+  base_system: *bionic
+  <<: *_image_defaults
+  php: *php72
+  php_extensions:
+    - php7.2-bcmath
+    - php7.2-bz2
+    - php7.2-curl
+    - php7.2-dba
+    - php7.2-dom
+    - php7.2-mbstring
+    - php7.2-SimpleXML
+    - php7.2-soap
+    - php7.2-wddx
+    - php7.2-xml
+    - php7.2-xmlreader
+    - php7.2-xmlwriter
+    - php7.2-zip
+  ruby_version: *ruby23
+  nodejs_version: *nodejs10
+
 node-10_php-7.0_ruby-2.3:
   base_system: *xenial
   <<: *_image_defaults
