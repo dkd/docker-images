@@ -1,4 +1,4 @@
-FROM ubuntu:xenial-20190222
+FROM ubuntu:xenial-20190425
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
