@@ -1,3 +1,5 @@
+require: rubocop-performance
+
 AllCops:
   DefaultFormatter: fuubar
   TargetRubyVersion: 2.5
