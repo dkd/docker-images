@@ -31,6 +31,7 @@ node-10_php-7.2_ruby-2.5:
     - php7.2-curl
     - php7.2-dba
     - php7.2-dom
+    - php7.2-gd
     - php7.2-mbstring
     - php7.2-SimpleXML
     - php7.2-soap
@@ -52,6 +53,7 @@ node-8_php-7.2_ruby-2.5:
     - php7.2-curl
     - php7.2-dba
     - php7.2-dom
+    - php7.2-gd
     - php7.2-mbstring
     - php7.2-SimpleXML
     - php7.2-soap
@@ -73,6 +75,7 @@ node-10_php-7.2_ruby-2.3:
     - php7.2-curl
     - php7.2-dba
     - php7.2-dom
+    - php7.2-gd
     - php7.2-mbstring
     - php7.2-SimpleXML
     - php7.2-soap
