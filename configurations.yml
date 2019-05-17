@@ -7,9 +7,9 @@ _image_defaults: &_image_defaults
 
 _options:
   os:
-    bionic: &bionic bionic-20190424
-    xenial: &xenial xenial-20190425
-    trusty: &trusty trusty-20190425
+    bionic: &bionic bionic-20190515
+    xenial: &xenial xenial-20190515
+    trusty: &trusty trusty-20190515
   nodejs:
     nodejs8_version: &nodejs8 8.16.0
     nodejs10_version: &nodejs10 10.15.3

@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-8_php-7.2_ruby-2.5
-FROM ubuntu:bionic-20190424
+FROM ubuntu:bionic-20190515
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
