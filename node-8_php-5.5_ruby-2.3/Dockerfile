@@ -69,8 +69,8 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=12.3.2 --no-doc --no-post-install-message &&\
-    gem update --system 3.0.3 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.0.1 --no-doc --no-post-install-message
+    gem update --system 3.0.4 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.0.2 --no-doc --no-post-install-message
 
 # Install NodeJS (v8.16.0)
 RUN curl -SLO "https://nodejs.org/dist/v8.16.0/node-v8.16.0-linux-x64.tar.xz" &&\
