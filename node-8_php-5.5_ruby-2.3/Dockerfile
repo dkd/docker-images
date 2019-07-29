@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-8_php-5.5_ruby-2.3
-FROM ubuntu:trusty-20190515
+FROM ubuntu:trusty
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -68,7 +68,7 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
       ruby2.3-dev
 
 # Install Rake, update RubyGems and install Bundler
-RUN gem install rake --version=12.3.2 --no-doc --no-post-install-message &&\
+RUN gem install rake --version=12.3.3 --no-doc --no-post-install-message &&\
     gem update --system 3.0.4 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message
 
@@ -78,8 +78,8 @@ RUN curl -SLO "https://nodejs.org/dist/v8.16.0/node-v8.16.0-linux-x64.tar.xz" &&
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.16.0-linux-x64.tar.xz
 
-# Install npm (v6.9.0)
-RUN npm install -g npm@6.9.0
+# Install npm (v6.10.2)
+RUN npm install -g npm@6.10.2
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
