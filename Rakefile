@@ -44,7 +44,7 @@ task :compile do
   load_configurations.each_key do |key|
     puts
     puts "Container: #{container_name(key)}"
-    raise('Premature exit due to error!') unless system("docker build -t #{container_name(key)} #{key} --compress --squash")
+    raise('Premature exit due to error!') unless system("docker build -t #{container_name(key)} #{key}") # --compress --squash
   end
 end
 
@@ -54,7 +54,7 @@ task :dryrun do
     container_name = "#{DOCKERHUB_ORGANIZATION}/#{CONTAINER_NAME}:#{key}"
     puts
     puts "Container: #{container_name(key)}"
-    puts "  docker build -t #{container_name} #{key} --compress --squash"
+    puts "  docker build -t #{container_name} #{key}" # --compress --squash
     puts "  docker push #{container_name}"
   end
 end
