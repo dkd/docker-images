@@ -73,8 +73,8 @@ RUN curl -SLO "https://nodejs.org/dist/v10.16.3/node-v10.16.3-linux-x64.tar.xz" 
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v10.16.3-linux-x64.tar.xz
 
-# Install npm (v6.10.3)
-RUN npm install -g npm@6.10.3
+# Install npm (v6.11.2)
+RUN npm install -g npm@6.11.2
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
