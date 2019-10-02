@@ -68,7 +68,7 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
       ruby2.3-dev
 
 # Install Rake, update RubyGems and install Bundler
-RUN gem install rake --version=12.3.3 --no-doc --no-post-install-message &&\
+RUN gem install rake --version=13.0.0 --no-doc --no-post-install-message &&\
     gem update --system 3.0.6 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message
 
