@@ -32,6 +32,7 @@ node-10_php-7.2_ruby-2.5:
     - php7.2-dba
     - php7.2-dom
     - php7.2-gd
+    - php7.2-intl
     - php7.2-mbstring
     - php7.2-SimpleXML
     - php7.2-soap
@@ -54,6 +55,7 @@ node-8_php-7.2_ruby-2.5:
     - php7.2-dba
     - php7.2-dom
     - php7.2-gd
+    - php7.2-intl
     - php7.2-mbstring
     - php7.2-SimpleXML
     - php7.2-soap
@@ -76,6 +78,7 @@ node-10_php-7.2_ruby-2.3:
     - php7.2-dba
     - php7.2-dom
     - php7.2-gd
+    - php7.2-intl
     - php7.2-mbstring
     - php7.2-SimpleXML
     - php7.2-soap
@@ -98,6 +101,7 @@ node-10_php-7.0_ruby-2.3:
     - php7.0-dba
     - php7.0-dom
     - php7.0-gd
+    - php7.0-intl
     - php7.0-mbstring
     - php7.0-SimpleXML
     - php7.0-soap
@@ -120,6 +124,7 @@ node-8_php-7.0_ruby-2.3:
     - php7.0-dba
     - php7.0-dom
     - php7.0-gd
+    - php7.0-intl
     - php7.0-mbstring
     - php7.0-SimpleXML
     - php7.0-soap
