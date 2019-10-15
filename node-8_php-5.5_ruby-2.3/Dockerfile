@@ -72,14 +72,14 @@ RUN gem install rake --version=13.0.0 --no-doc --no-post-install-message &&\
     gem update --system 3.0.6 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message
 
-# Install NodeJS (v8.16.1)
-RUN curl -SLO "https://nodejs.org/dist/v8.16.1/node-v8.16.1-linux-x64.tar.xz" &&\
-    tar -xJf "node-v8.16.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v8.16.2)
+RUN curl -SLO "https://nodejs.org/dist/v8.16.2/node-v8.16.2-linux-x64.tar.xz" &&\
+    tar -xJf "node-v8.16.2-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v8.16.1-linux-x64.tar.xz
+    rm /node-v8.16.2-linux-x64.tar.xz
 
-# Install npm (v6.11.3)
-RUN npm install -g npm@6.11.3
+# Install npm (v6.12.0)
+RUN npm install -g npm@6.12.0
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

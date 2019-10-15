@@ -7,8 +7,5 @@ AllCops:
   DisplayStyleGuide: true
   DisplayCopNames: true
 
-Documentation:
-  Enabled: false
-
 Metrics/LineLength:
   Max: 130
