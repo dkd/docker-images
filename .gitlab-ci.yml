@@ -6,12 +6,12 @@ before_script:
 build:
   stage: build
   script:
-    - docker build -t dkdde/jenkins-worker:httrack httrack
-    - docker build -t dkdde/jenkins-worker:node-10_php-7.0_ruby-2.3 node-10_php-7.0_ruby-2.3
-    - docker build -t dkdde/jenkins-worker:node-10_php-7.2_ruby-2.3 node-10_php-7.2_ruby-2.3
-    - docker build -t dkdde/jenkins-worker:node-10_php-7.2_ruby-2.5 node-10_php-7.2_ruby-2.5
-    - docker build -t dkdde/jenkins-worker:node-10_ruby-2.5 node-10_ruby-2.5
-    - docker build -t dkdde/jenkins-worker:node-8_php-5.5_ruby-2.3 node-8_php-5.5_ruby-2.3
-    - docker build -t dkdde/jenkins-worker:node-8_php-7.0_ruby-2.3 node-8_php-7.0_ruby-2.3
-    - docker build -t dkdde/jenkins-worker:node-8_php-7.2_ruby-2.5 node-8_php-7.2_ruby-2.5
-    - docker build -t dkdde/jenkins-worker:node-8_ruby-2.3 node-8_ruby-2.3
+    - docker build -t dkdde/jenkins-worker:httrack httrack --no-cache
+    - docker build -t dkdde/jenkins-worker:node-10_php-7.0_ruby-2.3 node-10_php-7.0_ruby-2.3 --no-cache
+    - docker build -t dkdde/jenkins-worker:node-10_php-7.2_ruby-2.3 node-10_php-7.2_ruby-2.3 --no-cache
+    - docker build -t dkdde/jenkins-worker:node-10_php-7.2_ruby-2.5 node-10_php-7.2_ruby-2.5 --no-cache
+    - docker build -t dkdde/jenkins-worker:node-10_ruby-2.5 node-10_ruby-2.5 --no-cache
+    - docker build -t dkdde/jenkins-worker:node-8_php-5.5_ruby-2.3 node-8_php-5.5_ruby-2.3 --no-cache
+    - docker build -t dkdde/jenkins-worker:node-8_php-7.0_ruby-2.3 node-8_php-7.0_ruby-2.3 --no-cache
+    - docker build -t dkdde/jenkins-worker:node-8_php-7.2_ruby-2.5 node-8_php-7.2_ruby-2.5 --no-cache
+    - docker build -t dkdde/jenkins-worker:node-8_ruby-2.3 node-8_ruby-2.3 --no-cache

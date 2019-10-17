@@ -44,7 +44,7 @@ task :compile do
   load_configurations.each_key do |key|
     puts
     puts "Container: #{container_name(key)}"
-    raise('Premature exit due to error!') unless system("docker build -t #{container_name(key)} #{key}") # --compress --squash
+    raise('Premature exit due to error!') unless system("docker build -t #{container_name(key)} #{key} --no-cache") # --compress --squash
   end
 end
 
