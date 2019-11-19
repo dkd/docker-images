@@ -34,6 +34,7 @@ node-10_php-7.2_ruby-2.5:
     - php7.2-gd
     - php7.2-intl
     - php7.2-mbstring
+    - php7.2-mysql
     - php7.2-SimpleXML
     - php7.2-soap
     - php7.2-wddx
@@ -57,6 +58,7 @@ node-8_php-7.2_ruby-2.5:
     - php7.2-gd
     - php7.2-intl
     - php7.2-mbstring
+    - php7.2-mysql
     - php7.2-SimpleXML
     - php7.2-soap
     - php7.2-wddx
@@ -80,6 +82,7 @@ node-10_php-7.2_ruby-2.3:
     - php7.2-gd
     - php7.2-intl
     - php7.2-mbstring
+    - php7.2-mysql
     - php7.2-SimpleXML
     - php7.2-soap
     - php7.2-wddx
