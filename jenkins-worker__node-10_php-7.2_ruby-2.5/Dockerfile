@@ -1,5 +1,5 @@
-# dkdde/jenkins-worker:node-10_php-7.0_ruby-2.3
-FROM ubuntu:xenial-20191024
+# dkdde/jenkins-worker:node-10_php-7.2_ruby-2.5
+FROM ubuntu:bionic-20191029
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends locales &&\
     locale-gen en_US.UTF-8 de_DE.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-8
 
-# let's skip this for testing purposes: DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
+# for testing purposes: DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
       wget \
@@ -33,7 +33,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       libcurl4-openssl-dev \
       imagemagick \
       libmagickwand-dev \
-      net-tools
+      net-tools \
+      libssl-dev
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
@@ -54,16 +55,16 @@ RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
 
-# Install PHP (php7.0-cli)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0-cli \
-    php7.0-bcmath php7.0-bz2 php7.0-curl php7.0-dba php7.0-dom php7.0-gd php7.0-intl php7.0-mbstring php7.0-SimpleXML php7.0-soap php7.0-wddx php7.0-xml php7.0-xmlreader php7.0-xmlwriter php7.0-zip
+# Install PHP (php7.2-cli)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.2-cli \
+    php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-gd php7.2-intl php7.2-mbstring php7.2-mysql php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
 
-# Install Ruby (v2.3)
+# Install Ruby (v2.5)
 RUN add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      ruby2.3 \
-      ruby2.3-dev
+      ruby2.5 \
+      ruby2.5-dev
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
@@ -76,8 +77,8 @@ RUN curl -SLO "https://nodejs.org/dist/v10.17.0/node-v10.17.0-linux-x64.tar.xz" 
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v10.17.0-linux-x64.tar.xz
 
-# Install npm (v6.13.0)
-RUN npm install -g npm@6.13.0
+# Install npm (v6.13.1)
+RUN npm install -g npm@6.13.1
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

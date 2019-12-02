@@ -1,5 +1,5 @@
-# dkdde/jenkins-worker:node-10_php-7.2_ruby-2.3
-FROM ubuntu:bionic-20191029
+# dkdde/gitlab-ci-worker:node-8_php-5.5_ruby-2.3
+FROM ubuntu:trusty
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -8,16 +8,13 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Add user jenkins
-RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
-
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends locales &&\
     locale-gen en_US.UTF-8 de_DE.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-8
 
-# let's skip this for testing purposes: DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
+# for testing purposes: DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
       wget \
@@ -33,7 +30,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       libcurl4-openssl-dev \
       imagemagick \
       libmagickwand-dev \
-      net-tools
+      net-tools \
+      libssl-dev
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
@@ -44,19 +42,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
-# Create local cache directories
-RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
-    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
-    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache}
-
-
-# Install JDK (v8)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      openjdk-8-jre-headless
-
-# Install PHP (php7.2-cli)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.2-cli \
-    php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-gd php7.2-intl php7.2-mbstring php7.2-mysql php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
+# Install PHP (php5-cli)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php5-cli \
+    php5-common php5-cli php5-curl
 
 # Install Ruby (v2.3)
 RUN add-apt-repository ppa:brightbox/ruby-ng &&\
@@ -70,14 +58,14 @@ RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
     gem update --system 3.0.6 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message
 
-# Install NodeJS (v10.17.0)
-RUN curl -SLO "https://nodejs.org/dist/v10.17.0/node-v10.17.0-linux-x64.tar.xz" &&\
-    tar -xJf "node-v10.17.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v8.16.2)
+RUN curl -SLO "https://nodejs.org/dist/v8.16.2/node-v8.16.2-linux-x64.tar.xz" &&\
+    tar -xJf "node-v8.16.2-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v10.17.0-linux-x64.tar.xz
+    rm /node-v8.16.2-linux-x64.tar.xz
 
-# Install npm (v6.13.0)
-RUN npm install -g npm@6.13.0
+# Install npm (v6.13.1)
+RUN npm install -g npm@6.13.1
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
