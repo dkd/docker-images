@@ -64,7 +64,6 @@ desc 'show Docker commmands to build images'
 task :dryrun do
   CONFIGS.each do |config|
     load_configurations(config).each_key do |key|
-      container_name = container_name_plus_tag(config, key)
       puts
       puts "Container: #{container_name_plus_tag(config, key)}"
       puts "  docker build -t #{container_name_plus_tag(config, key)} #{key}" # --compress --squash
