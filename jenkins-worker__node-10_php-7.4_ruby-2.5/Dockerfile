@@ -1,4 +1,4 @@
-# dkdde/jenkins-worker:node-10_php-7.2_ruby-2.3
+# dkdde/jenkins-worker:node-10_php-7.4_ruby-2.5
 FROM ubuntu:bionic-20191029
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
@@ -55,17 +55,19 @@ RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
 
+RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository ppa:ondrej/php &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get update -q
 
-# Install PHP (php7.2-cli)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.2-cli \
-    php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-gd php7.2-intl php7.2-mbstring php7.2-mysql php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
+# Install PHP (php7.4-cli)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.4-cli \
+    php7.4-bcmath php7.4-bz2 php7.4-curl php7.4-dba php7.4-dom php7.4-gd php7.4-intl php7.4-mbstring php7.4-mysql php7.4-SimpleXML php7.4-soap php7.4-xml php7.4-xmlreader php7.4-xmlwriter php7.4-zip
 
-# Install Ruby (v2.3)
+# Install Ruby (v2.5)
 RUN add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      ruby2.3 \
-      ruby2.3-dev
+      ruby2.5 \
+      ruby2.5-dev
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\

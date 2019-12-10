@@ -55,6 +55,7 @@ RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
 
+
 # Install PHP (php7.2-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.2-cli \
     php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-gd php7.2-intl php7.2-mbstring php7.2-mysql php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
@@ -77,8 +78,8 @@ RUN curl -SLO "https://nodejs.org/dist/v8.16.2/node-v8.16.2-linux-x64.tar.xz" &&
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.16.2-linux-x64.tar.xz
 
-# Install npm (v6.13.1)
-RUN npm install -g npm@6.13.1
+# Install npm (v6.13.2)
+RUN npm install -g npm@6.13.2
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

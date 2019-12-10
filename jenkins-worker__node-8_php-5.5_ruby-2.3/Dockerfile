@@ -57,6 +57,7 @@ RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository ppa:openjdk-r/ppa &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
 
+
 # Install PHP (php5-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php5-cli \
     php5-common php5-cli php5-curl
@@ -79,8 +80,8 @@ RUN curl -SLO "https://nodejs.org/dist/v8.16.2/node-v8.16.2-linux-x64.tar.xz" &&
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.16.2-linux-x64.tar.xz
 
-# Install npm (v6.13.1)
-RUN npm install -g npm@6.13.1
+# Install npm (v6.13.2)
+RUN npm install -g npm@6.13.2
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

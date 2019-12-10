@@ -1,5 +1,5 @@
 # dkdde/gitlab-ci-worker:node-8_ruby-2.3
-FROM ubuntu:xenial-20191024
+FROM ubuntu:xenial-20191108
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -43,6 +43,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
 
+
 # Install Ruby (v2.3)
 RUN add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
@@ -61,8 +62,8 @@ RUN curl -SLO "https://nodejs.org/dist/v8.16.2/node-v8.16.2-linux-x64.tar.xz" &&
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.16.2-linux-x64.tar.xz
 
-# Install npm (v6.13.1)
-RUN npm install -g npm@6.13.1
+# Install npm (v6.13.2)
+RUN npm install -g npm@6.13.2
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

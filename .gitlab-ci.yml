@@ -29,6 +29,11 @@ build_jenkins-worker__node-10_php-7.2_ruby-2.5:
   stage: build_images
   script: docker build -t dkdde/jenkins-worker:node-10_php-7.2_ruby-2.5 jenkins-worker__node-10_php-7.2_ruby-2.5
 
+build_jenkins-worker__node-10_php-7.4_ruby-2.5:
+  interruptible: true
+  stage: build_images
+  script: docker build -t dkdde/jenkins-worker:node-10_php-7.4_ruby-2.5 jenkins-worker__node-10_php-7.4_ruby-2.5
+
 build_jenkins-worker__node-10_ruby-2.5:
   interruptible: true
   stage: build_images

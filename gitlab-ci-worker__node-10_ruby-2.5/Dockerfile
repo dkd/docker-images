@@ -43,6 +43,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
 
+
 # Install Ruby (v2.5)
 RUN add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
@@ -61,8 +62,8 @@ RUN curl -SLO "https://nodejs.org/dist/v10.17.0/node-v10.17.0-linux-x64.tar.xz" 
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v10.17.0-linux-x64.tar.xz
 
-# Install npm (v6.13.1)
-RUN npm install -g npm@6.13.1
+# Install npm (v6.13.2)
+RUN npm install -g npm@6.13.2
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-8_php-7.0_ruby-2.3
-FROM ubuntu:xenial-20191024
+FROM ubuntu:xenial-20191108
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -55,6 +55,7 @@ RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openjdk-8-jre-headless
 
+
 # Install PHP (php7.0-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0-cli \
     php7.0-bcmath php7.0-bz2 php7.0-curl php7.0-dba php7.0-dom php7.0-gd php7.0-intl php7.0-mbstring php7.0-SimpleXML php7.0-soap php7.0-wddx php7.0-xml php7.0-xmlreader php7.0-xmlwriter php7.0-zip
@@ -77,8 +78,8 @@ RUN curl -SLO "https://nodejs.org/dist/v8.16.2/node-v8.16.2-linux-x64.tar.xz" &&
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.16.2-linux-x64.tar.xz
 
-# Install npm (v6.13.1)
-RUN npm install -g npm@6.13.1
+# Install npm (v6.13.2)
+RUN npm install -g npm@6.13.2
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

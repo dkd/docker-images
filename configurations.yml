@@ -2,13 +2,14 @@ _image_defaults: &_image_defaults
   rake_version: 13.0.1
   rubygems_version: 3.0.6
   bundler_version: 2.0.2
-  npm_version: 6.13.1
+  npm_version: 6.13.2
   jdk_version: 8
 
 _options:
   os:
+    focal: &focal focal-20191030
     bionic: &bionic bionic-20191029
-    xenial: &xenial xenial-20191024
+    xenial: &xenial xenial-20191108
     trusty: &trusty trusty
   nodejs:
     nodejs8_version: &nodejs8 8.16.2
@@ -20,6 +21,31 @@ _options:
     php5: &php5 php5-cli
     php70: &php70 php7.0-cli
     php72: &php72 php7.2-cli
+    php74: &php74 php7.4-cli
+
+node-10_php-7.4_ruby-2.5:
+  base_system: *bionic
+  <<: *_image_defaults
+  php: *php74
+  php_ppa: 'ppa:ondrej/php'
+  php_extensions:
+    - php7.4-bcmath
+    - php7.4-bz2
+    - php7.4-curl
+    - php7.4-dba
+    - php7.4-dom
+    - php7.4-gd
+    - php7.4-intl
+    - php7.4-mbstring
+    - php7.4-mysql
+    - php7.4-SimpleXML
+    - php7.4-soap
+    - php7.4-xml
+    - php7.4-xmlreader
+    - php7.4-xmlwriter
+    - php7.4-zip
+  ruby_version: *ruby25
+  nodejs_version: *nodejs10
 
 node-10_php-7.2_ruby-2.5:
   base_system: *bionic
@@ -142,7 +168,7 @@ node-8_php-7.0_ruby-2.3:
 node-8_php-5.5_ruby-2.3:
   base_system: *trusty
   <<: *_image_defaults
-  jdk_repo: 'ppa:openjdk-r/ppa'
+  jdk_ppa: 'ppa:openjdk-r/ppa'
   php: *php5
   php_extensions:
     - php5-common
