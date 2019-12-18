@@ -1,19 +1,20 @@
 _image_defaults: &_image_defaults
   rake_version: 13.0.1
-  rubygems_version: 3.0.6
-  bundler_version: 2.0.2
-  npm_version: 6.13.2
+  rubygems_version: 3.1.1
+  bundler_version: 2.1.0
+  npm_version: 6.13.4
   jdk_version: 8
 
 _options:
   os:
-    focal: &focal focal-20191030
+    focal: &focal focal
     bionic: &bionic bionic-20191029
     xenial: &xenial xenial-20191108
     trusty: &trusty trusty
   nodejs:
     nodejs8_version: &nodejs8 8.16.2
     nodejs10_version: &nodejs10 10.17.0
+    nodejs12_version: &nodejs12 12.13.1
   ruby:
     ruby23_version: &ruby23 2.3
     ruby25_version: &ruby25 2.5
@@ -26,7 +27,9 @@ _options:
 node-10_php-7.4_ruby-2.5:
   base_system: *bionic
   <<: *_image_defaults
+  nodejs_version: *nodejs10
   php: *php74
+  ruby_version: *ruby25
   php_ppa: 'ppa:ondrej/php'
   php_extensions:
     - php7.4-bcmath
@@ -44,13 +47,37 @@ node-10_php-7.4_ruby-2.5:
     - php7.4-xmlreader
     - php7.4-xmlwriter
     - php7.4-zip
+
+node-12_php-7.4_ruby-2.5:
+  base_system: *bionic
+  <<: *_image_defaults
+  nodejs_version: *nodejs12
+  php: *php74
   ruby_version: *ruby25
-  nodejs_version: *nodejs10
+  php_ppa: 'ppa:ondrej/php'
+  php_extensions:
+    - php7.4-bcmath
+    - php7.4-bz2
+    - php7.4-curl
+    - php7.4-dba
+    - php7.4-dom
+    - php7.4-gd
+    - php7.4-intl
+    - php7.4-mbstring
+    - php7.4-mysql
+    - php7.4-SimpleXML
+    - php7.4-soap
+    - php7.4-xml
+    - php7.4-xmlreader
+    - php7.4-xmlwriter
+    - php7.4-zip
 
 node-10_php-7.2_ruby-2.5:
   base_system: *bionic
   <<: *_image_defaults
+  nodejs_version: *nodejs10
   php: *php72
+  ruby_version: *ruby25
   php_extensions:
     - php7.2-bcmath
     - php7.2-bz2
@@ -68,13 +95,13 @@ node-10_php-7.2_ruby-2.5:
     - php7.2-xmlreader
     - php7.2-xmlwriter
     - php7.2-zip
-  ruby_version: *ruby25
-  nodejs_version: *nodejs10
 
 node-8_php-7.2_ruby-2.5:
   base_system: *bionic
   <<: *_image_defaults
+  nodejs_version: *nodejs8
   php: *php72
+  ruby_version: *ruby25
   php_extensions:
     - php7.2-bcmath
     - php7.2-bz2
@@ -92,13 +119,13 @@ node-8_php-7.2_ruby-2.5:
     - php7.2-xmlreader
     - php7.2-xmlwriter
     - php7.2-zip
-  ruby_version: *ruby25
-  nodejs_version: *nodejs8
 
 node-10_php-7.2_ruby-2.3:
   base_system: *bionic
   <<: *_image_defaults
+  nodejs_version: *nodejs10
   php: *php72
+  ruby_version: *ruby23
   php_extensions:
     - php7.2-bcmath
     - php7.2-bz2
@@ -116,12 +143,12 @@ node-10_php-7.2_ruby-2.3:
     - php7.2-xmlreader
     - php7.2-xmlwriter
     - php7.2-zip
-  ruby_version: *ruby23
-  nodejs_version: *nodejs10
 
 node-10_php-7.0_ruby-2.3:
   base_system: *xenial
   <<: *_image_defaults
+  nodejs_version: *nodejs10
+  ruby_version: *ruby23
   php: *php70
   php_extensions:
     - php7.0-bcmath
@@ -139,13 +166,13 @@ node-10_php-7.0_ruby-2.3:
     - php7.0-xmlreader
     - php7.0-xmlwriter
     - php7.0-zip
-  ruby_version: *ruby23
-  nodejs_version: *nodejs10
 
 node-8_php-7.0_ruby-2.3:
   base_system: *xenial
   <<: *_image_defaults
+  nodejs_version: *nodejs8
   php: *php70
+  ruby_version: *ruby23
   php_extensions:
     - php7.0-bcmath
     - php7.0-bz2
@@ -162,29 +189,28 @@ node-8_php-7.0_ruby-2.3:
     - php7.0-xmlreader
     - php7.0-xmlwriter
     - php7.0-zip
-  ruby_version: *ruby23
-  nodejs_version: *nodejs8
 
 node-8_php-5.5_ruby-2.3:
   base_system: *trusty
   <<: *_image_defaults
-  jdk_ppa: 'ppa:openjdk-r/ppa'
+  nodejs_version: *nodejs8
   php: *php5
+  ruby_version: *ruby23
+  jdk_ppa: 'ppa:openjdk-r/ppa'
   php_extensions:
     - php5-common
     - php5-cli
     - php5-curl
-  ruby_version: *ruby23
-  nodejs_version: *nodejs8
 
 node-10_ruby-2.5:
   base_system: *bionic
   <<: *_image_defaults
-  ruby_version: *ruby25
   nodejs_version: *nodejs10
+  ruby_version: *ruby25
 
 node-8_ruby-2.3:
-  <<: *_image_defaults
   base_system: *xenial
-  ruby_version: *ruby23
+  <<: *_image_defaults
   nodejs_version: *nodejs8
+  ruby_version: *ruby23
+  

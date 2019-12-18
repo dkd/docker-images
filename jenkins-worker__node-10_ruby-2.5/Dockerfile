@@ -66,8 +66,8 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
-    gem update --system 3.0.6 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.0.2 --no-doc --no-post-install-message
+    gem update --system 3.1.1 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.1.0 --no-doc --no-post-install-message
 
 # Install NodeJS (v10.17.0)
 RUN curl -SLO "https://nodejs.org/dist/v10.17.0/node-v10.17.0-linux-x64.tar.xz" &&\
@@ -75,8 +75,8 @@ RUN curl -SLO "https://nodejs.org/dist/v10.17.0/node-v10.17.0-linux-x64.tar.xz" 
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v10.17.0-linux-x64.tar.xz
 
-# Install npm (v6.13.2)
-RUN npm install -g npm@6.13.2
+# Install npm (v6.13.4)
+RUN npm install -g npm@6.13.4
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
