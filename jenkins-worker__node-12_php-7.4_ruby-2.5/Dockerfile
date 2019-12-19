@@ -72,7 +72,8 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
     gem update --system 3.1.1 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.1.0 --no-doc --no-post-install-message
+    gem install bundler --version=2.1.0 --no-doc --no-post-install-message &&\
+    gem install bundler --version=1.17.3
 
 # Install NodeJS (v12.13.1)
 RUN curl -SLO "https://nodejs.org/dist/v12.13.1/node-v12.13.1-linux-x64.tar.xz" &&\

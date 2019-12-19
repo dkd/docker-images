@@ -67,7 +67,8 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=<%= rake_version %> --no-doc --no-post-install-message &&\
     gem update --system <%= rubygems_version %> --no-doc --no-post-install-message &&\
-    gem install bundler --version=<%= bundler_version %> --no-doc --no-post-install-message
+    gem install bundler --version=<%= bundler_version %> --no-doc --no-post-install-message &&\
+    gem install bundler --version=1.17.3
 <% end %>
 <% end %>
 
