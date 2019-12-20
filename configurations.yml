@@ -1,7 +1,8 @@
 _image_defaults: &_image_defaults
   rake_version: 13.0.1
-  rubygems_version: 3.1.1
-  bundler_version: 2.1.0
+  rubygems_version: 3.1.2
+  bundler_version: 2.1.2
+  legacy_bundler_version: 1.17.3
   npm_version: 6.13.4
   jdk_version: 8
 
