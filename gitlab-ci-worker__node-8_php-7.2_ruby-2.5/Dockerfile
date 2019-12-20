@@ -1,5 +1,5 @@
 # dkdde/gitlab-ci-worker:node-8_php-7.2_ruby-2.5
-FROM ubuntu:bionic-20191029
+FROM ubuntu:bionic-20191202
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -60,11 +60,11 @@ RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.2 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message
 
-# Install NodeJS (v8.16.2)
-RUN curl -SLO "https://nodejs.org/dist/v8.16.2/node-v8.16.2-linux-x64.tar.xz" &&\
-    tar -xJf "node-v8.16.2-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v8.17.0)
+RUN curl -SLO "https://nodejs.org/dist/v8.17.0/node-v8.17.0-linux-x64.tar.xz" &&\
+    tar -xJf "node-v8.17.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v8.16.2-linux-x64.tar.xz
+    rm /node-v8.17.0-linux-x64.tar.xz
 
 # Install npm (v6.13.4)
 RUN npm install -g npm@6.13.4
