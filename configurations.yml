@@ -1,14 +1,16 @@
 _image_defaults: &_image_defaults
   rake_version: 13.0.1
   rubygems_version: 3.1.2
-  bundler_version: 2.1.2
-  legacy_bundler_version: 1.17.3
+  bundler_version: 2.1.4
+  legacy_bundler_versions:
+    - 2.0.2
+    - 1.17.3
   npm_version: 6.13.4
   jdk_version: 8
 
 _options:
   os:
-    focal: &focal focal
+    focal: &focal focal-20191129
     bionic: &bionic bionic-20191202
     xenial: &xenial xenial-20191212
     trusty: &trusty trusty
@@ -19,6 +21,7 @@ _options:
   ruby:
     ruby23_version: &ruby23 2.3
     ruby25_version: &ruby25 2.5
+    ruby27_version: &ruby27 2.7
   php:
     php5: &php5 php5-cli
     php70: &php70 php7.0-cli

@@ -68,7 +68,10 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 RUN gem install rake --version=<%= rake_version %> --no-doc --no-post-install-message &&\
     gem update --system <%= rubygems_version %> --no-doc --no-post-install-message &&\
     gem install bundler --version=<%= bundler_version %> --no-doc --no-post-install-message &&\
-    gem install bundler --version=<%= legacy_bundler_version %> --no-doc --no-post-install-message
+    <% legacy_bundler_versions.each do |legacy_bundler_version| %>
+    gem install bundler --version=<%= legacy_bundler_version %> --no-doc --no-post-install-message &&\
+    <% end %>
+    gem list
 <% end %>
 <% end %>
 
