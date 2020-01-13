@@ -64,14 +64,14 @@ RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem list
 
-# Install NodeJS (v12.14.0)
-RUN curl -SLO "https://nodejs.org/dist/v12.14.0/node-v12.14.0-linux-x64.tar.xz" &&\
-    tar -xJf "node-v12.14.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v12.14.1)
+RUN curl -SLO "https://nodejs.org/dist/v12.14.1/node-v12.14.1-linux-x64.tar.xz" &&\
+    tar -xJf "node-v12.14.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v12.14.0-linux-x64.tar.xz
+    rm /node-v12.14.1-linux-x64.tar.xz
 
-# Install npm (v6.13.4)
-RUN npm install -g npm@6.13.4
+# Install npm (v6.13.6)
+RUN npm install -g npm@6.13.6
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
