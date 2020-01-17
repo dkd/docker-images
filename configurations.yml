@@ -1,6 +1,7 @@
 _image_defaults: &_image_defaults
+  composer_version: 1.9.2
   rake_version: 13.0.1
-  rubygems_version: 3.1.2
+  rubygems_version: 3.0.6
   bundler_version: 2.1.4
   legacy_bundler_versions:
     - 2.0.2
@@ -11,9 +12,9 @@ _image_defaults: &_image_defaults
 _options:
   os:
     focal: &focal focal-20191129
-    bionic: &bionic bionic-20191202
-    xenial: &xenial xenial-20191212
-    trusty: &trusty trusty
+    bionic: &bionic bionic-20200112
+    xenial: &xenial xenial-20200114
+    trusty: &trusty trusty-20191217
   nodejs:
     nodejs8_version: &nodejs8 8.17.0
     nodejs10_version: &nodejs10 10.18.1
@@ -34,6 +35,7 @@ node-10_php-7.4_ruby-2.5:
   nodejs_version: *nodejs10
   php: *php74
   ruby_version: *ruby25
+  ruby_ppa: 'ppa:brightbox/ruby-ng-experimental'
   php_ppa: 'ppa:ondrej/php'
   php_extensions:
     - php7.4-bcmath
@@ -59,6 +61,7 @@ node-12_php-7.4_ruby-2.5:
   php: *php74
   ruby_version: *ruby25
   php_ppa: 'ppa:ondrej/php'
+  ruby_ppa: 'ppa:brightbox/ruby-ng-experimental'
   php_extensions:
     - php7.4-bcmath
     - php7.4-bz2
@@ -82,6 +85,7 @@ node-10_php-7.2_ruby-2.5:
   nodejs_version: *nodejs10
   php: *php72
   ruby_version: *ruby25
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
   php_extensions:
     - php7.2-bcmath
     - php7.2-bz2
@@ -106,6 +110,7 @@ node-8_php-7.2_ruby-2.5:
   nodejs_version: *nodejs8
   php: *php72
   ruby_version: *ruby25
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
   php_extensions:
     - php7.2-bcmath
     - php7.2-bz2
@@ -130,6 +135,7 @@ node-10_php-7.2_ruby-2.3:
   nodejs_version: *nodejs10
   php: *php72
   ruby_version: *ruby23
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
   php_extensions:
     - php7.2-bcmath
     - php7.2-bz2
@@ -153,6 +159,7 @@ node-10_php-7.0_ruby-2.3:
   <<: *_image_defaults
   nodejs_version: *nodejs10
   ruby_version: *ruby23
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
   php: *php70
   php_extensions:
     - php7.0-bcmath
@@ -177,6 +184,7 @@ node-8_php-7.0_ruby-2.3:
   nodejs_version: *nodejs8
   php: *php70
   ruby_version: *ruby23
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
   php_extensions:
     - php7.0-bcmath
     - php7.0-bz2
@@ -200,6 +208,7 @@ node-8_php-5.5_ruby-2.3:
   nodejs_version: *nodejs8
   php: *php5
   ruby_version: *ruby23
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
   jdk_ppa: 'ppa:openjdk-r/ppa'
   php_extensions:
     - php5-common
@@ -211,10 +220,11 @@ node-10_ruby-2.5:
   <<: *_image_defaults
   nodejs_version: *nodejs10
   ruby_version: *ruby25
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
 
 node-8_ruby-2.3:
   base_system: *xenial
   <<: *_image_defaults
   nodejs_version: *nodejs8
   ruby_version: *ruby23
-  
+  ruby_ppa: 'ppa:brightbox/ruby-ng'

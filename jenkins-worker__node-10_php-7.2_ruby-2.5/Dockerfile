@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-10_php-7.2_ruby-2.5
-FROM ubuntu:bionic-20191202
+FROM ubuntu:bionic-20200112
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -69,7 +69,7 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
-    gem update --system 3.1.2 --no-doc --no-post-install-message &&\
+    gem update --system 3.0.6 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\

@@ -72,9 +72,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
   <% end %>
 <% end %>
 
-<% if defined?(ruby_version) %>
+<% if defined?(ruby_ppa) && defined?(ruby_version) %>
 # Install Ruby (v<%= ruby_version %>)
-RUN add-apt-repository ppa:brightbox/ruby-ng &&\
+RUN add-apt-repository <%= ruby_ppa %> &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby<%= ruby_version %> \
