@@ -12,97 +12,97 @@ debug_docker:
 build_jenkins-worker__httrack:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:httrack httrack
+  script: docker build -t dkdde/jenkins-worker:httrack httrack --no-cache
 
 build_jenkins-worker__node-10_php-7.0_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-10_php-7.0_ruby-2.3 jenkins-worker__node-10_php-7.0_ruby-2.3
+  script: docker build -t dkdde/jenkins-worker:node-10_php-7.0_ruby-2.3 jenkins-worker__node-10_php-7.0_ruby-2.3 --no-cache
 
 build_jenkins-worker__node-10_php-7.2_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-10_php-7.2_ruby-2.3 jenkins-worker__node-10_php-7.2_ruby-2.3
+  script: docker build -t dkdde/jenkins-worker:node-10_php-7.2_ruby-2.3 jenkins-worker__node-10_php-7.2_ruby-2.3 --no-cache
 
 build_jenkins-worker__node-10_php-7.2_ruby-2.5:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-10_php-7.2_ruby-2.5 jenkins-worker__node-10_php-7.2_ruby-2.5
+  script: docker build -t dkdde/jenkins-worker:node-10_php-7.2_ruby-2.5 jenkins-worker__node-10_php-7.2_ruby-2.5 --no-cache
 
 build_jenkins-worker__node-10_php-7.4_ruby-2.5:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-10_php-7.4_ruby-2.5 jenkins-worker__node-10_php-7.4_ruby-2.5
+  script: docker build -t dkdde/jenkins-worker:node-10_php-7.4_ruby-2.5 jenkins-worker__node-10_php-7.4_ruby-2.5 --no-cache
 
 build_jenkins-worker__node-10_ruby-2.5:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-10_ruby-2.5 jenkins-worker__node-10_ruby-2.5
+  script: docker build -t dkdde/jenkins-worker:node-10_ruby-2.5 jenkins-worker__node-10_ruby-2.5 --no-cache
 
 build_jenkins-worker__node-8_php-5.5_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-8_php-5.5_ruby-2.3 jenkins-worker__node-8_php-5.5_ruby-2.3
+  script: docker build -t dkdde/jenkins-worker:node-8_php-5.5_ruby-2.3 jenkins-worker__node-8_php-5.5_ruby-2.3 --no-cache
 
 build_jenkins-worker__node-8_php-7.0_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-8_php-7.0_ruby-2.3 jenkins-worker__node-8_php-7.0_ruby-2.3
+  script: docker build -t dkdde/jenkins-worker:node-8_php-7.0_ruby-2.3 jenkins-worker__node-8_php-7.0_ruby-2.3 --no-cache
 
 build_jenkins-worker__node-8_php-7.2_ruby-2.5:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-8_php-7.2_ruby-2.5 jenkins-worker__node-8_php-7.2_ruby-2.5
+  script: docker build -t dkdde/jenkins-worker:node-8_php-7.2_ruby-2.5 jenkins-worker__node-8_php-7.2_ruby-2.5 --no-cache
 
 build_jenkins-worker__node-8_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-8_ruby-2.3 jenkins-worker__node-8_ruby-2.3
+  script: docker build -t dkdde/jenkins-worker:node-8_ruby-2.3 jenkins-worker__node-8_ruby-2.3 --no-cache
 
 build_gitlab-ci-worker__httrack:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/jenkins-worker:httrack httrack
+  script: docker build -t dkdde/jenkins-worker:httrack httrack --no-cache
 
 build_gitlab-ci-worker__node-10_php-7.0_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/gitlab-ci-worker:node-10_php-7.0_ruby-2.3 gitlab-ci-worker__node-10_php-7.0_ruby-2.3
+  script: docker build -t dkdde/gitlab-ci-worker:node-10_php-7.0_ruby-2.3 gitlab-ci-worker__node-10_php-7.0_ruby-2.3 --no-cache
 
 build_gitlab-ci-worker__node-10_php-7.2_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/gitlab-ci-worker:node-10_php-7.2_ruby-2.3 gitlab-ci-worker__node-10_php-7.2_ruby-2.3
+  script: docker build -t dkdde/gitlab-ci-worker:node-10_php-7.2_ruby-2.3 gitlab-ci-worker__node-10_php-7.2_ruby-2.3 --no-cache
 
 build_gitlab-ci-worker__node-10_php-7.2_ruby-2.5:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/gitlab-ci-worker:node-10_php-7.2_ruby-2.5 gitlab-ci-worker__node-10_php-7.2_ruby-2.5
+  script: docker build -t dkdde/gitlab-ci-worker:node-10_php-7.2_ruby-2.5 gitlab-ci-worker__node-10_php-7.2_ruby-2.5 --no-cache
 
 build_gitlab-ci-worker__node-10_ruby-2.5:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/gitlab-ci-worker:node-10_ruby-2.5 gitlab-ci-worker__node-10_ruby-2.5
+  script: docker build -t dkdde/gitlab-ci-worker:node-10_ruby-2.5 gitlab-ci-worker__node-10_ruby-2.5 --no-cache
 
 build_gitlab-ci-worker__node-8_php-5.5_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/gitlab-ci-worker:node-8_php-5.5_ruby-2.3 gitlab-ci-worker__node-8_php-5.5_ruby-2.3
+  script: docker build -t dkdde/gitlab-ci-worker:node-8_php-5.5_ruby-2.3 gitlab-ci-worker__node-8_php-5.5_ruby-2.3 --no-cache
 
 build_gitlab-ci-worker__node-8_php-7.0_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/gitlab-ci-worker:node-8_php-7.0_ruby-2.3 gitlab-ci-worker__node-8_php-7.0_ruby-2.3
+  script: docker build -t dkdde/gitlab-ci-worker:node-8_php-7.0_ruby-2.3 gitlab-ci-worker__node-8_php-7.0_ruby-2.3 --no-cache
 
 build_gitlab-ci-worker__node-8_php-7.2_ruby-2.5:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/gitlab-ci-worker:node-8_php-7.2_ruby-2.5 gitlab-ci-worker__node-8_php-7.2_ruby-2.5
+  script: docker build -t dkdde/gitlab-ci-worker:node-8_php-7.2_ruby-2.5 gitlab-ci-worker__node-8_php-7.2_ruby-2.5 --no-cache
 
 build_gitlab-ci-worker__node-8_ruby-2.3:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/gitlab-ci-worker:node-8_ruby-2.3 gitlab-ci-worker__node-8_ruby-2.3
+  script: docker build -t dkdde/gitlab-ci-worker:node-8_ruby-2.3 gitlab-ci-worker__node-8_ruby-2.3 --no-cache
 
 upload_images:
   interruptible: true
