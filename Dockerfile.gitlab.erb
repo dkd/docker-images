@@ -18,6 +18,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
       wget \
+      chromium-browser \
+      chromium-browser-l10n \
       curl \
       unzip \
       locales \
@@ -31,7 +33,17 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       imagemagick \
       libmagickwand-dev \
       net-tools \
-      libssl-dev
+      libssl-dev \
+      libgtk2.0-0 \
+      libgtk-3-0 \
+      libnotify-dev \
+      libgconf-2-4 \
+      libnss3 \
+      libxss1 \
+      libasound2 \
+      libxtst6 \
+      xauth \
+      xvfb
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \

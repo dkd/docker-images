@@ -21,6 +21,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
       wget \
+      chromium-browser \
+      chromium-browser-l10n \
       curl \
       unzip \
       locales \
@@ -34,7 +36,18 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       imagemagick \
       libmagickwand-dev \
       net-tools \
-      libssl-dev
+      libssl-dev \
+      libssl-dev \
+      libgtk2.0-0 \
+      libgtk-3-0 \
+      libnotify-dev \
+      libgconf-2-4 \
+      libnss3 \
+      libxss1 \
+      libasound2 \
+      libxtst6 \
+      xauth \
+      xvfb
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
@@ -46,9 +59,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
 # Create local cache directories
-RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
-    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache} &&\
-    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache}
+RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
+    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
+    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache}
 
 <% if defined?(jdk_ppa) %>
 RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository <%= jdk_ppa %> &&\

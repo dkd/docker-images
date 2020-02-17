@@ -18,6 +18,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
       wget \
+      chromium-browser \
+      chromium-browser-l10n \
       curl \
       unzip \
       locales \
@@ -31,7 +33,17 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       imagemagick \
       libmagickwand-dev \
       net-tools \
-      libssl-dev
+      libssl-dev \
+      libgtk2.0-0 \
+      libgtk-3-0 \
+      libnotify-dev \
+      libgconf-2-4 \
+      libnss3 \
+      libxss1 \
+      libasound2 \
+      libxtst6 \
+      xauth \
+      xvfb
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
@@ -63,18 +75,18 @@ RUN add-apt-repository ppa:brightbox/ruby-ng-experimental &&\
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
     gem update --system 3.0.6 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem list
 
-# Install NodeJS (v10.18.1)
-RUN curl -SLO "https://nodejs.org/dist/v10.18.1/node-v10.18.1-linux-x64.tar.xz" &&\
-    tar -xJf "node-v10.18.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v10.19.0)
+RUN curl -SLO "https://nodejs.org/dist/v10.19.0/node-v10.19.0-linux-x64.tar.xz" &&\
+    tar -xJf "node-v10.19.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v10.18.1-linux-x64.tar.xz
+    rm /node-v10.19.0-linux-x64.tar.xz
 
-# Install npm (v6.13.6)
-RUN npm install -g npm@6.13.6
+# Install npm (v6.13.7)
+RUN npm install -g npm@6.13.7
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
