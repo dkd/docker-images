@@ -1,5 +1,5 @@
 # dkdde/gitlab-ci-worker:node-10_php-7.4_ruby-2.5
-FROM ubuntu:bionic-20200112
+FROM ubuntu:bionic-20200219
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -60,7 +60,7 @@ RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository ppa:ondrej/php &&\
 # Install PHP (php7.4-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.4-cli \
     php7.4-bcmath php7.4-bz2 php7.4-curl php7.4-dba php7.4-dom php7.4-gd php7.4-intl php7.4-mbstring php7.4-mysql php7.4-SimpleXML php7.4-soap php7.4-xml php7.4-xmlreader php7.4-xmlwriter php7.4-zip
-RUN curl -SLO https://getcomposer.org/download/1.9.2/composer.phar &&\
+RUN curl -SLO https://getcomposer.org/download/1.9.3/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 

@@ -58,7 +58,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Install PHP (php5-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php5-cli \
     php5-common php5-cli php5-curl
-RUN curl -SLO https://getcomposer.org/download/1.9.2/composer.phar &&\
+RUN curl -SLO https://getcomposer.org/download/1.9.3/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 

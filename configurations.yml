@@ -1,5 +1,5 @@
 _image_defaults: &_image_defaults
-  composer_version: 1.9.2
+  composer_version: 1.9.3
   rake_version: 13.0.1
   rubygems_version: 3.0.6
   bundler_version: 2.1.4
@@ -12,13 +12,13 @@ _image_defaults: &_image_defaults
 _options:
   os:
     trusty: &trusty trusty-20191217
-    xenial: &xenial xenial-20200114
-    bionic: &bionic bionic-20200112
+    xenial: &xenial xenial-20200212
+    bionic: &bionic bionic-20200219
     focal: &focal focal-20200115
   nodejs:
     nodejs8_version: &nodejs8 8.17.0
     nodejs10_version: &nodejs10 10.19.0
-    nodejs12_version: &nodejs12 12.16.0
+    nodejs12_version: &nodejs12 12.16.1
   ruby:
     ruby23_version: &ruby23 2.3
     ruby25_version: &ruby25 2.5
