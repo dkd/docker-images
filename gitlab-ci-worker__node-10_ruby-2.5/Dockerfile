@@ -1,5 +1,5 @@
 # dkdde/gitlab-ci-worker:node-10_ruby-2.5
-FROM ubuntu:bionic-20200219
+FROM ubuntu:bionic-20200311
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -77,8 +77,8 @@ RUN curl -SLO "https://nodejs.org/dist/v10.19.0/node-v10.19.0-linux-x64.tar.xz" 
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v10.19.0-linux-x64.tar.xz
 
-# Install npm (v6.14.2)
-RUN npm install -g npm@6.14.2
+# Install npm (v6.14.4)
+RUN npm install -g npm@6.14.4
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
