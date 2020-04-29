@@ -30,7 +30,7 @@ _options:
     php74: &php74 php7.4-cli
 
 node-10_php-7.4_ruby-2.5:
-  base_system: *focal
+  base_system: *bionic
   <<: *_image_defaults
   nodejs_version: *nodejs10
   php: *php74
@@ -55,7 +55,7 @@ node-10_php-7.4_ruby-2.5:
     - php7.4-zip
 
 node-12_php-7.4_ruby-2.5:
-  base_system: *focal
+  base_system: *bionic
   <<: *_image_defaults
   nodejs_version: *nodejs12
   php: *php74
