@@ -8,9 +8,6 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Add user jenkins
-RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
-
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
@@ -37,7 +34,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       libmagickwand-dev \
       net-tools \
       libssl-dev \
-      libssl-dev \
       libgtk2.0-0 \
       libgtk-3-0 \
       libnotify-dev \
@@ -58,31 +54,20 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
-# Create local cache directories
-RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
-    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
-    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache}
-
-<% if defined?(jdk_ppa) %>
-RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository <%= jdk_ppa %> &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get update -q
-<% end %>
-
-# Install JDK (v<%= jdk_version %>)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      openjdk-<%= jdk_version %>-jre-headless
-
 <% if defined?(php_ppa) %>
 RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository <%= php_ppa %> &&\
     DEBIAN_FRONTEND="noninteractive" apt-get update -q
 <% end %>
 
-<% if defined?(php) %>
+<% if defined?(php) && defined?(composer_version) %>
 # Install PHP (<%= php %>)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends <%= php %> \
   <% if defined?(php_extensions) %>
     <%= php_extensions.join(' ') %>
   <% end %>
+RUN curl -SLO https://getcomposer.org/download/<%= composer_version %>/composer.phar &&\
+    mv composer.phar /usr/local/bin/composer &&\
+    chmod +x /usr/local/bin/composer
 <% end %>
 
 <% if defined?(ruby_ppa) && defined?(ruby_version) %>
@@ -117,6 +102,23 @@ RUN curl -SLO "https://nodejs.org/dist/v<%= nodejs_version %>/node-v<%= nodejs_v
 RUN npm install -g npm@<%= npm_version %>
 <% end %>
 <% end %>
+
+<% if defined?(jdk_ppa) %>
+RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository <%= jdk_ppa %> &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get update -q
+<% end %>
+
+# Install JDK (v<%= jdk_version %>)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-<%= jdk_version %>-jre-headless
+
+# Add user jenkins
+RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
+
+# Create local cache directories
+RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
+    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
+    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache}
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

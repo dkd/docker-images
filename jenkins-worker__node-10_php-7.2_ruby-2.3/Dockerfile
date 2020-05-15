@@ -8,9 +8,6 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Add user jenkins
-RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
-
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
@@ -37,7 +34,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       libmagickwand-dev \
       net-tools \
       libssl-dev \
-      libssl-dev \
       libgtk2.0-0 \
       libgtk-3-0 \
       libnotify-dev \
@@ -58,20 +54,13 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
-# Create local cache directories
-RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
-    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
-    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache}
-
-
-# Install JDK (v8)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      openjdk-8-jre-headless
-
 
 # Install PHP (php7.2-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.2-cli \
     php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-gd php7.2-intl php7.2-mbstring php7.2-mysql php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
+RUN curl -SLO https://getcomposer.org/download/1.10.6/composer.phar &&\
+    mv composer.phar /usr/local/bin/composer &&\
+    chmod +x /usr/local/bin/composer
 
 # Install Ruby (v2.3)
 RUN add-apt-repository ppa:brightbox/ruby-ng &&\
@@ -82,7 +71,7 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
-    gem update --system 3.0.8 --no-doc --no-post-install-message &&\
+    gem update --system 3.1.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
@@ -96,6 +85,19 @@ RUN curl -SLO "https://nodejs.org/dist/v10.20.1/node-v10.20.1-linux-x64.tar.xz" 
 
 # Install npm (v6.14.5)
 RUN npm install -g npm@6.14.5
+
+
+# Install JDK (v8)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-8-jre-headless
+
+# Add user jenkins
+RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
+
+# Create local cache directories
+RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
+    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
+    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache}
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
