@@ -94,8 +94,8 @@ RUN curl -SLO "https://nodejs.org/dist/v10.20.1/node-v10.20.1-linux-x64.tar.xz" 
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v10.20.1-linux-x64.tar.xz
 
-# Install npm (v6.14.4)
-RUN npm install -g npm@6.14.4
+# Install npm (v6.14.5)
+RUN npm install -g npm@6.14.5
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

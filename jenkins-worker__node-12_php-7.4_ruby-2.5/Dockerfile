@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-12_php-7.4_ruby-2.5
-FROM ubuntu:focal-20200423
+FROM ubuntu:bionic-20200403
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -90,14 +90,14 @@ RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem list
 
-# Install NodeJS (v12.16.2)
-RUN curl -SLO "https://nodejs.org/dist/v12.16.2/node-v12.16.2-linux-x64.tar.xz" &&\
-    tar -xJf "node-v12.16.2-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v12.16.3)
+RUN curl -SLO "https://nodejs.org/dist/v12.16.3/node-v12.16.3-linux-x64.tar.xz" &&\
+    tar -xJf "node-v12.16.3-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v12.16.2-linux-x64.tar.xz
+    rm /node-v12.16.3-linux-x64.tar.xz
 
-# Install npm (v6.14.4)
-RUN npm install -g npm@6.14.4
+# Install npm (v6.14.5)
+RUN npm install -g npm@6.14.5
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

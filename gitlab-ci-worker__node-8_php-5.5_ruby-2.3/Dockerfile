@@ -58,7 +58,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Install PHP (php5-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php5-cli \
     php5-common php5-cli php5-curl
-RUN curl -SLO https://getcomposer.org/download/1.10.5/composer.phar &&\
+RUN curl -SLO https://getcomposer.org/download/1.10.6/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 
@@ -83,8 +83,8 @@ RUN curl -SLO "https://nodejs.org/dist/v8.17.0/node-v8.17.0-linux-x64.tar.xz" &&
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v8.17.0-linux-x64.tar.xz
 
-# Install npm (v6.14.4)
-RUN npm install -g npm@6.14.4
+# Install npm (v6.14.5)
+RUN npm install -g npm@6.14.5
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
