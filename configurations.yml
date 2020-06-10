@@ -142,7 +142,7 @@ node-10_php-7.2_ruby-2.5:
     - libmysqlclient-dev
 
 node-12_ruby-2.7:
-  base_system: *focal
+  base_system: *bionic
   <<: *_image_defaults
   ruby_version: *ruby27
   ruby_ppa: 'ppa:brightbox/ruby-ng-experimental'
