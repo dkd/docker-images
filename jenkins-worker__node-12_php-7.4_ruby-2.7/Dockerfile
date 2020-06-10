@@ -1,4 +1,4 @@
-# dkdde/gitlab-ci-worker:node-10_php-7.2_ruby-2.3
+# dkdde/jenkins-worker:node-12_php-7.4_ruby-2.7
 FROM ubuntu:bionic-20200403
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
@@ -18,14 +18,11 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
       wget \
-      chromium-browser \
-      chromium-browser-l10n \
       curl \
       unzip \
       locales \
       libxslt-dev \
       libxml2-dev \
-      libmysqlclient-dev \
       build-essential \
       sqlite3 \
       libsqlite3-dev \
@@ -43,7 +40,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       libasound2 \
       libxtst6 \
       xauth \
-      xvfb
+      xvfb \
+      libmariadb-dev
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
@@ -54,37 +52,52 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
+RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository ppa:ondrej/php &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get update -q
 
-# Install PHP (php7.2-cli)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.2-cli \
-    php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-gd php7.2-intl php7.2-mbstring php7.2-mysql php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
-RUN curl -SLO https://getcomposer.org/download/1.10.6/composer.phar &&\
+# Install PHP (php7.4-cli)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.4-cli \
+    php7.4-bcmath php7.4-bz2 php7.4-curl php7.4-dba php7.4-dom php7.4-gd php7.4-intl php7.4-mbstring php7.4-mysql php7.4-SimpleXML php7.4-soap php7.4-xml php7.4-xmlreader php7.4-xmlwriter php7.4-zip
+RUN curl -SLO https://getcomposer.org/download/1.10.7/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 
-# Install Ruby (v2.3)
-RUN add-apt-repository ppa:brightbox/ruby-ng &&\
+# Install Ruby (v2.7)
+RUN add-apt-repository ppa:brightbox/ruby-ng-experimental &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      ruby2.3 \
-      ruby2.3-dev
+      ruby2.7 \
+      ruby2.7-dev
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
-    gem update --system 3.1.3 --no-doc --no-post-install-message &&\
+    gem update --system 3.1.4 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem list
 
-# Install NodeJS (v10.20.1)
-RUN curl -SLO "https://nodejs.org/dist/v10.20.1/node-v10.20.1-linux-x64.tar.xz" &&\
-    tar -xJf "node-v10.20.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v12.18.0)
+RUN curl -SLO "https://nodejs.org/dist/v12.18.0/node-v12.18.0-linux-x64.tar.xz" &&\
+    tar -xJf "node-v12.18.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v10.20.1-linux-x64.tar.xz
+    rm /node-v12.18.0-linux-x64.tar.xz
 
 # Install npm (v6.14.5)
 RUN npm install -g npm@6.14.5
+
+
+# Install JDK (v8)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+      openjdk-8-jre-headless
+
+# Add user jenkins
+RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
+
+# Create local cache directories
+RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
+    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
+    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache}
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

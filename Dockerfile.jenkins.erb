@@ -1,5 +1,5 @@
 # <%= "#{dockerhub_organisation}/#{container_name}:#{tag}" %>
-FROM ubuntu:<%= base_system %>
+FROM <%= base_system %>
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -18,14 +18,11 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       openssh-client \
       wget \
-      chromium-browser \
-      chromium-browser-l10n \
       curl \
       unzip \
       locales \
       libxslt-dev \
       libxml2-dev \
-      libmysqlclient-dev \
       build-essential \
       sqlite3 \
       libsqlite3-dev \
@@ -43,7 +40,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       libasound2 \
       libxtst6 \
       xauth \
-      xvfb
+      xvfb \
+      <%= if defined?(additional_apt_packages) then additional_apt_packages.join(' ') else '' end %>
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
