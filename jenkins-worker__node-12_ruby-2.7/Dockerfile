@@ -55,7 +55,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 
 
 # Install Ruby (v2.7)
-RUN add-apt-repository ppa:brightbox/ruby-ng-experimental &&\
+RUN add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby2.7 \

@@ -33,7 +33,7 @@ node-12_php-7.4_ruby-2.7:
   nodejs_version: *nodejs12
   php: *php74
   ruby_version: *ruby27
-  ruby_ppa: 'ppa:brightbox/ruby-ng-experimental'
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
   php_ppa: 'ppa:ondrej/php'
   php_extensions:
     - php7.4-bcmath
@@ -145,7 +145,7 @@ node-12_ruby-2.7:
   base_system: *bionic
   <<: *_image_defaults
   ruby_version: *ruby27
-  ruby_ppa: 'ppa:brightbox/ruby-ng-experimental'
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
   nodejs_version: *nodejs12
   additional_apt_packages:
     - libmariadb-dev
