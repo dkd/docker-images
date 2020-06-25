@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-10_php-7.2_ruby-2.5
-FROM ubuntu:bionic-20200403
+FROM ubuntu:bionic-20200526
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -56,7 +56,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Install PHP (php7.2-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.2-cli \
     php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-gd php7.2-intl php7.2-mbstring php7.2-mysql php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
-RUN curl -SLO https://getcomposer.org/download/1.10.7/composer.phar &&\
+RUN curl -SLO https://getcomposer.org/download/1.10.8/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 
