@@ -67,8 +67,7 @@ RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
-    gem list &&\
-    rm /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
+    gem list
 
 # Install NodeJS (v12.18.1)
 RUN curl -SLO "https://nodejs.org/dist/v12.18.1/node-v12.18.1-linux-x64.tar.xz" &&\

@@ -84,8 +84,7 @@ RUN gem install rake --version=<%= rake_version %> --no-doc --no-post-install-me
     <% legacy_bundler_versions.each do |legacy_bundler_version| %>
     gem install bundler --version=<%= legacy_bundler_version %> --no-doc --no-post-install-message &&\
     <% end %>
-    gem list &&\
-    rm /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
+    gem list
 <% end %>
 <% end %>
 
