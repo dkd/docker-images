@@ -59,7 +59,8 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby2.5 \
-      ruby2.5-dev
+      ruby2.5-dev &&\
+      rm /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
