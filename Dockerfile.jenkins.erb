@@ -74,8 +74,7 @@ RUN add-apt-repository <%= ruby_ppa %> &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby<%= ruby_version %> \
-      ruby<%= ruby_version %>-dev &&\
-      rm /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
+      ruby<%= ruby_version %>-dev
 
 <% if defined?(rake_version) && defined?(rubygems_version) && defined?(bundler_version) %>
 # Install Rake, update RubyGems and install Bundler
@@ -85,7 +84,8 @@ RUN gem install rake --version=<%= rake_version %> --no-doc --no-post-install-me
     <% legacy_bundler_versions.each do |legacy_bundler_version| %>
     gem install bundler --version=<%= legacy_bundler_version %> --no-doc --no-post-install-message &&\
     <% end %>
-    gem list
+    gem list &&\
+    rm /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
 <% end %>
 <% end %>
 

@@ -65,8 +65,7 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       ruby2.5 \
-      ruby2.5-dev &&\
-      rm /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
+      ruby2.5-dev
 
 # Install Rake, update RubyGems and install Bundler
 RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
@@ -74,7 +73,8 @@ RUN gem install rake --version=13.0.1 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
-    gem list
+    gem list &&\
+    rm /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
 
 # Install NodeJS (v10.21.0)
 RUN curl -SLO "https://nodejs.org/dist/v10.21.0/node-v10.21.0-linux-x64.tar.xz" &&\
