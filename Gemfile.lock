@@ -31,3 +31,6 @@ DEPENDENCIES
   rubocop
   rubocop-performance
   tilt
+
+BUNDLED WITH
+   2.1.4
