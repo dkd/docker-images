@@ -41,7 +41,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       libxtst6 \
       xauth \
       xvfb \
-      libmysqlclient-dev
+      chromium-browser chromium-browser-l10n libmysqlclient-dev
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \

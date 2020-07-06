@@ -41,7 +41,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       libxtst6 \
       xauth \
       xvfb \
-      libmariadb-dev
+      chromium-browser chromium-browser-l10n libmariadb-dev
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \

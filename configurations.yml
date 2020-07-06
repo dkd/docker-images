@@ -51,6 +51,8 @@ node-12_php-7.4_ruby-2.7:
     - php7.4-xmlwriter
     - php7.4-zip
   additional_apt_packages:
+    - chromium-browser
+    - chromium-browser-l10n
     - libmariadb-dev
 
 node-10_php-7.4_ruby-2.5:
@@ -156,4 +158,6 @@ node-10_ruby-2.5:
   ruby_version: *ruby25
   ruby_ppa: 'ppa:brightbox/ruby-ng'
   additional_apt_packages:
+    - chromium-browser
+    - chromium-browser-l10n
     - libmysqlclient-dev
