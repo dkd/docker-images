@@ -9,7 +9,7 @@ require 'fileutils'
 Configuration = Struct.new(:prefix, :container_name, :configurations_file, :template_name)
 jenkins = Configuration.new('jenkins', 'jenkins-worker', 'configurations.yml', 'Dockerfile.jenkins.erb')
 gitlab = Configuration.new('gitlab', 'gitlab-ci-worker', 'configurations.yml', 'Dockerfile.gitlab.erb')
-CONFIGS = [jenkins, gitlab]
+CONFIGS = [jenkins, gitlab].freeze
 
 def load_configurations(config)
   file_content = YAML.load_file(File.join(__dir__, config.configurations_file))
@@ -55,7 +55,11 @@ task :compile do
     load_configurations(config).each_key do |key|
       puts
       puts "Container: #{container_name_plus_tag(config, key)}"
-      raise('Premature exit due to error!') unless system("docker build -t #{container_name_plus_tag(config, key)} #{folder_name(config, key)} --no-cache") # --compress --squash
+
+      unless system("docker build -t #{container_name_plus_tag(config, key)} #{folder_name(config, key)} --no-cache")
+        # experimental: --compress --squash
+        raise('Premature exit due to error!')
+      end
     end
   end
 end

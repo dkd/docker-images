@@ -1,5 +1,5 @@
 # dkdde/gitlab-ci-worker:node-12_php-7.4_ruby-2.7
-FROM ubuntu:bionic-20200526
+FROM ubuntu:bionic-20200630
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -58,7 +58,7 @@ RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository ppa:ondrej/php &&\
 # Install PHP (php7.4-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.4-cli \
     php7.4-bcmath php7.4-bz2 php7.4-curl php7.4-dba php7.4-dom php7.4-gd php7.4-intl php7.4-mbstring php7.4-mysql php7.4-SimpleXML php7.4-soap php7.4-xml php7.4-xmlreader php7.4-xmlwriter php7.4-zip
-RUN curl -SLO https://getcomposer.org/download/1.10.8/composer.phar &&\
+RUN curl -SLO https://getcomposer.org/download/1.10.9/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 
@@ -77,14 +77,14 @@ RUN gem update --system 3.1.4 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem list
 
-# Install NodeJS (v12.18.1)
-RUN curl -SLO "https://nodejs.org/dist/v12.18.1/node-v12.18.1-linux-x64.tar.xz" &&\
-    tar -xJf "node-v12.18.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v12.18.3)
+RUN curl -SLO "https://nodejs.org/dist/v12.18.3/node-v12.18.3-linux-x64.tar.xz" &&\
+    tar -xJf "node-v12.18.3-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v12.18.1-linux-x64.tar.xz
+    rm /node-v12.18.3-linux-x64.tar.xz
 
-# Install npm (v6.14.5)
-RUN npm install -g npm@6.14.5
+# Install npm (v6.14.7)
+RUN npm install -g npm@6.14.7
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
