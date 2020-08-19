@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-12_ruby-2.7
-FROM ubuntu:bionic-20200630
+FROM ubuntu:bionic-20200713
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -75,8 +75,8 @@ RUN curl -SLO "https://nodejs.org/dist/v12.18.3/node-v12.18.3-linux-x64.tar.xz" 
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v12.18.3-linux-x64.tar.xz
 
-# Install npm (v6.14.7)
-RUN npm install -g npm@6.14.7
+# Install npm (v6.14.8)
+RUN npm install -g npm@6.14.8
 
 
 # Install JDK (v8)
