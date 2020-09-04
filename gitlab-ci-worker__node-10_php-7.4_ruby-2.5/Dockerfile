@@ -13,6 +13,7 @@ ENV NODE_VERSION=10.22
 ENV BUNDLE_PATH=/cache-global/ruby/2.5/bundler/
 ENV COMPOSER_CACHE_DIR=/cache-global/php/7.4/composer/
 ENV NPM_CONFIG_CACHE=/cache-global/node/10/npm/
+ENV CYPRESS_CACHE_FOLDER=/cache-global/node/10/cypress/
 
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\

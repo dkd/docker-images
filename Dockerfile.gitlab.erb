@@ -13,6 +13,7 @@ ENV NODE_VERSION=<%= env['node_version'] %>
 ENV BUNDLE_PATH=<%= env['bundle_path'] %>
 ENV COMPOSER_CACHE_DIR=<%= env['composer_cache_dir'] %>
 ENV NPM_CONFIG_CACHE=<%= env['npm_config_cache'] %>
+ENV CYPRESS_CACHE_FOLDER=<%= env['cypress_cache_folder'] %>
 
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\

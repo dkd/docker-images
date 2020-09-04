@@ -58,6 +58,7 @@ node-12_php-7.4_ruby-2.7:
     bundle_path: '/cache-global/ruby/2.7/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     npm_config_cache: '/cache-global/node/12/npm/'
+    cypress_cache_folder: '/cache-global/node/12/cypress/'
 
 node-10_php-7.4_ruby-2.5:
   base_system: *bionic
@@ -94,6 +95,7 @@ node-10_php-7.4_ruby-2.5:
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     npm_config_cache: '/cache-global/node/10/npm/'
+    cypress_cache_folder: '/cache-global/node/10/cypress/'
 
 node-12_php-7.4_ruby-2.5:
   base_system: *bionic
@@ -130,6 +132,7 @@ node-12_php-7.4_ruby-2.5:
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     npm_config_cache: '/cache-global/node/12/npm/'
+    cypress_cache_folder: '/cache-global/node/12/cypress/'
 
 node-10_php-7.2_ruby-2.5:
   base_system: *bionic
@@ -166,6 +169,7 @@ node-10_php-7.2_ruby-2.5:
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     composer_cache_dir: '/cache-global/php/7.2/composer/'
     npm_config_cache: '/cache-global/node/10/npm/'
+    cypress_cache_folder: '/cache-global/node/10/cypress/'
 
 node-12_ruby-2.7:
   base_system: *bionic
@@ -180,6 +184,7 @@ node-12_ruby-2.7:
     node_version: 12.18
     bundle_path: '/cache-global/ruby/2.7/bundler/'
     npm_config_cache: '/cache-global/node/12/npm/'
+    cypress_cache_folder: '/cache-global/node/12/cypress/'
 
 node-10_ruby-2.5:
   base_system: *bionic
@@ -196,3 +201,4 @@ node-10_ruby-2.5:
     node_version: 10.22
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     npm_config_cache: '/cache-global/node/10/npm/'
+    cypress_cache_folder: '/cache-global/node/10/cypress/'
