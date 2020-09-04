@@ -72,6 +72,7 @@ task :dryrun do
       puts "Container: #{container_name_plus_tag(config, key)}"
       puts "  docker build -t #{container_name_plus_tag(config, key)} #{key}" # --compress --squash
       puts "  docker push #{container_name_plus_tag(config, key)}"
+      puts "  docker pull #{container_name_plus_tag(config, key)}"
     end
   end
 end

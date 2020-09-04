@@ -7,6 +7,12 @@ LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV RUBY_VERSION=2.5
+ENV PHP_VERSION=7.4
+ENV NODE_VERSION=10.22
+ENV BUNDLE_PATH=/cache-global/ruby/2.5/bundler/
+ENV COMPOSER_CACHE_DIR=/cache-global/php/7.4/composer/
+ENV NPM_CONFIG_CACHE=/cache-global/node/10/npm/
 
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\

@@ -7,6 +7,12 @@ LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV RUBY_VERSION=<%= env['ruby_version'] %>
+ENV PHP_VERSION=<%= env['php_version'] %>
+ENV NODE_VERSION=<%= env['node_version'] %>
+ENV BUNDLE_PATH=<%= env['bundle_path'] %>
+ENV COMPOSER_CACHE_DIR=<%= env['composer_cache_dir'] %>
+ENV NPM_CONFIG_CACHE=<%= env['npm_config_cache'] %>
 
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\

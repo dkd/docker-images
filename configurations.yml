@@ -51,6 +51,13 @@ node-12_php-7.4_ruby-2.7:
     - chromium-browser
     - chromium-browser-l10n
     - libmariadb-dev
+  env:
+    ruby_version: 2.7
+    php_version: 7.4
+    node_version: 12.18
+    bundle_path: '/cache-global/ruby/2.7/bundler/'
+    composer_cache_dir: '/cache-global/php/7.4/composer/'
+    npm_config_cache: '/cache-global/node/12/npm/'
 
 node-10_php-7.4_ruby-2.5:
   base_system: *bionic
@@ -80,6 +87,13 @@ node-10_php-7.4_ruby-2.5:
     - chromium-browser
     - chromium-browser-l10n
     - libmysqlclient-dev
+  env:
+    ruby_version: 2.5
+    php_version: 7.4
+    node_version: 10.22
+    bundle_path: '/cache-global/ruby/2.5/bundler/'
+    composer_cache_dir: '/cache-global/php/7.4/composer/'
+    npm_config_cache: '/cache-global/node/10/npm/'
 
 node-12_php-7.4_ruby-2.5:
   base_system: *bionic
@@ -109,6 +123,13 @@ node-12_php-7.4_ruby-2.5:
     - chromium-browser
     - chromium-browser-l10n
     - libmysqlclient-dev
+  env:
+    ruby_version: 2.5
+    php_version: 7.4
+    node_version: 12.18
+    bundle_path: '/cache-global/ruby/2.5/bundler/'
+    composer_cache_dir: '/cache-global/php/7.4/composer/'
+    npm_config_cache: '/cache-global/node/12/npm/'
 
 node-10_php-7.2_ruby-2.5:
   base_system: *bionic
@@ -138,6 +159,13 @@ node-10_php-7.2_ruby-2.5:
     - chromium-browser
     - chromium-browser-l10n
     - libmysqlclient-dev
+  env:
+    ruby_version: 2.5
+    php_version: 7.2
+    node_version: 10.22
+    bundle_path: '/cache-global/ruby/2.5/bundler/'
+    composer_cache_dir: '/cache-global/php/7.2/composer/'
+    npm_config_cache: '/cache-global/node/10/npm/'
 
 node-12_ruby-2.7:
   base_system: *bionic
@@ -147,6 +175,11 @@ node-12_ruby-2.7:
   nodejs_version: *nodejs12
   additional_apt_packages:
     - libmariadb-dev
+  env:
+    ruby_version: 2.7
+    node_version: 12.18
+    bundle_path: '/cache-global/ruby/2.7/bundler/'
+    npm_config_cache: '/cache-global/node/12/npm/'
 
 node-10_ruby-2.5:
   base_system: *bionic
@@ -158,3 +191,8 @@ node-10_ruby-2.5:
     - chromium-browser
     - chromium-browser-l10n
     - libmysqlclient-dev
+  env:
+    ruby_version: 2.5
+    node_version: 10.22
+    bundle_path: '/cache-global/ruby/2.5/bundler/'
+    npm_config_cache: '/cache-global/node/10/npm/'
