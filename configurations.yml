@@ -11,7 +11,7 @@ _image_defaults: &_image_defaults
 
 _options:
   os:
-    xenial: &xenial xenial-20200807
+    xenial: &xenial ubuntu:xenial-20200807
     bionic: &bionic ubuntu:bionic-20200807
     focal: &focal ubuntu:focal-20200729
   nodejs:
