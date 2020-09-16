@@ -1,4 +1,4 @@
-# dkdde/jenkins-worker:node-10_php-7.4_ruby-2.5
+# dkdde/gitlab-ci-worker:node-10_php-7.0_ruby-2.5
 FROM ubuntu:bionic-20200807
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
@@ -7,6 +7,13 @@ LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV RUBY_VERSION=2.5
+ENV PHP_VERSION=7.0
+ENV NODE_VERSION=10.22
+ENV BUNDLE_PATH=/cache-global/ruby/2.5/bundler/
+ENV COMPOSER_CACHE_DIR=/cache-global/php/7.2/composer/
+ENV NPM_CONFIG_CACHE=/cache-global/node/10/npm/
+ENV CYPRESS_CACHE_FOLDER=/cache-global/node/10/cypress/
 
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
@@ -52,12 +59,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
-RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository ppa:ondrej/php &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get update -q
 
-# Install PHP (php7.4-cli)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.4-cli \
-    php7.4-bcmath php7.4-bz2 php7.4-curl php7.4-dba php7.4-dom php7.4-gd php7.4-intl php7.4-mbstring php7.4-mysql php7.4-SimpleXML php7.4-soap php7.4-xml php7.4-xmlreader php7.4-xmlwriter php7.4-zip
+# Install PHP (php7.0-cli)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0-cli \
+    php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-gd php7.2-intl php7.2-mbstring php7.2-mysql php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
 RUN curl -SLO https://getcomposer.org/download/1.10.10/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
@@ -85,19 +90,6 @@ RUN curl -SLO "https://nodejs.org/dist/v10.22.1/node-v10.22.1-linux-x64.tar.xz" 
 
 # Install npm (v6.14.8)
 RUN npm install -g npm@6.14.8
-
-
-# Install JDK (v8)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      openjdk-8-jre-headless
-
-# Add user jenkins
-RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
-
-# Create local cache directories
-RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
-    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
-    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache}
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
