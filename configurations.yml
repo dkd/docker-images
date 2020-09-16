@@ -1,5 +1,5 @@
 _image_defaults: &_image_defaults
-  composer_version: 1.10.10
+  composer_version: 1.10.13
   rake_version: 13.0.1
   rubygems_version: 3.1.4
   bundler_version: 2.1.4
@@ -11,6 +11,7 @@ _image_defaults: &_image_defaults
 
 _options:
   os:
+    xenial: &xenial xenial-20200807
     bionic: &bionic ubuntu:bionic-20200807
     focal: &focal ubuntu:focal-20200729
   nodejs:
@@ -173,29 +174,29 @@ node-10_php-7.2_ruby-2.5:
     cypress_cache_folder: '/cache-global/node/10/cypress/'
 
 node-10_php-7.0_ruby-2.5:
-  base_system: *bionic
+  base_system: *xenial
   <<: *_image_defaults
   nodejs_version: *nodejs10
   php: *php70
   ruby_version: *ruby25
   ruby_ppa: 'ppa:brightbox/ruby-ng'
   php_extensions:
-    - php7.2-bcmath
-    - php7.2-bz2
-    - php7.2-curl
-    - php7.2-dba
-    - php7.2-dom
-    - php7.2-gd
-    - php7.2-intl
-    - php7.2-mbstring
-    - php7.2-mysql
-    - php7.2-SimpleXML
-    - php7.2-soap
-    - php7.2-wddx
-    - php7.2-xml
-    - php7.2-xmlreader
-    - php7.2-xmlwriter
-    - php7.2-zip
+    - php7.0-bcmath
+    - php7.0-bz2
+    - php7.0-curl
+    - php7.0-dba
+    - php7.0-dom
+    - php7.0-gd
+    - php7.0-intl
+    - php7.0-mbstring
+    - php7.0-mysql
+    - php7.0-SimpleXML
+    - php7.0-soap
+    - php7.0-wddx
+    - php7.0-xml
+    - php7.0-xmlreader
+    - php7.0-xmlwriter
+    - php7.0-zip
   additional_apt_packages:
     - chromium-browser
     - chromium-browser-l10n
