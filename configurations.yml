@@ -11,9 +11,9 @@ _image_defaults: &_image_defaults
 
 _options:
   os:
-    xenial: &xenial ubuntu:xenial-20200807
-    bionic: &bionic ubuntu:bionic-20200807
-    focal: &focal ubuntu:focal-20200729
+    xenial: &xenial ubuntu:xenial-20200903
+    bionic: &bionic ubuntu:bionic-20200903
+    focal: &focal ubuntu:focal-20200916
   nodejs:
     nodejs10_version: &nodejs10 10.22.1
     nodejs12_version: &nodejs12 12.18.4

@@ -1,5 +1,5 @@
 # dkdde/gitlab-ci-worker:node-12_ruby-2.7
-FROM ubuntu:bionic-20200807
+FROM ubuntu:bionic-20200903
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
