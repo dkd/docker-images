@@ -9,7 +9,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 ENV RUBY_VERSION=2.5
 ENV PHP_VERSION=7.4
-ENV NODE_VERSION=12.18
+ENV NODE_VERSION=12.19
 ENV BUNDLE_PATH=/cache-global/ruby/2.5/bundler/
 ENV COMPOSER_CACHE_DIR=/cache-global/php/7.4/composer/
 ENV NPM_CONFIG_CACHE=/cache-global/node/12/npm/
@@ -65,7 +65,7 @@ RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository ppa:ondrej/php &&\
 # Install PHP (php7.4-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.4-cli \
     php7.4-bcmath php7.4-bz2 php7.4-curl php7.4-dba php7.4-dom php7.4-gd php7.4-intl php7.4-mbstring php7.4-mysql php7.4-SimpleXML php7.4-soap php7.4-xml php7.4-xmlreader php7.4-xmlwriter php7.4-zip
-RUN curl -SLO https://getcomposer.org/download/1.10.13/composer.phar &&\
+RUN curl -SLO https://getcomposer.org/download/1.10.15/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 
