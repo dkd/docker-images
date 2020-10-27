@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-10_php-7.0_ruby-2.5
-FROM ubuntu:xenial-20200916
+FROM ubuntu:xenial-20201014
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -56,7 +56,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Install PHP (php7.0-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0-cli \
     php7.0-bcmath php7.0-bz2 php7.0-curl php7.0-dba php7.0-dom php7.0-gd php7.0-intl php7.0-mbstring php7.0-mysql php7.0-SimpleXML php7.0-soap php7.0-wddx php7.0-xml php7.0-xmlreader php7.0-xmlwriter php7.0-zip
-RUN curl -SLO https://getcomposer.org/download/1.10.15/composer.phar &&\
+RUN curl -SLO https://getcomposer.org/download/1.10.16/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 

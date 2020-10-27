@@ -1,5 +1,5 @@
 _image_defaults: &_image_defaults
-  composer_version: 1.10.15
+  composer_version: 1.10.16
   rake_version: 13.0.1
   rubygems_version: 3.1.4
   bundler_version: 2.1.4
@@ -11,9 +11,9 @@ _image_defaults: &_image_defaults
 
 _options:
   os:
-    xenial: &xenial ubuntu:xenial-20200916
+    xenial: &xenial ubuntu:xenial-20201014
     bionic: &bionic ubuntu:bionic-20200921
-    focal: &focal ubuntu:focal-20200925
+    focal: &focal ubuntu:focal-20201008
   nodejs:
     nodejs10_version: &nodejs10 10.22.1
     nodejs12_version: &nodejs12 12.19.0
