@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-10_php-7.2_ruby-2.5
-FROM ubuntu:bionic-20200921
+FROM ubuntu:bionic-20201119
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -56,7 +56,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
 # Install PHP (php7.2-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.2-cli \
     php7.2-bcmath php7.2-bz2 php7.2-curl php7.2-dba php7.2-dom php7.2-gd php7.2-intl php7.2-mbstring php7.2-mysql php7.2-SimpleXML php7.2-soap php7.2-wddx php7.2-xml php7.2-xmlreader php7.2-xmlwriter php7.2-zip
-RUN curl -SLO https://getcomposer.org/download/1.10.16/composer.phar &&\
+RUN curl -SLO https://getcomposer.org/download/1.10.19/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 
@@ -69,20 +69,21 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Install Rake, update RubyGems and install Bundler
 RUN rm -f /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
-RUN gem update --system 3.1.4 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
+RUN gem update --system 3.2.0 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.2.0 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
     gem list
 
-# Install NodeJS (v10.22.1)
-RUN curl -SLO "https://nodejs.org/dist/v10.22.1/node-v10.22.1-linux-x64.tar.xz" &&\
-    tar -xJf "node-v10.22.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v10.23.0)
+RUN curl -SLO "https://nodejs.org/dist/v10.23.0/node-v10.23.0-linux-x64.tar.xz" &&\
+    tar -xJf "node-v10.23.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v10.22.1-linux-x64.tar.xz
+    rm /node-v10.23.0-linux-x64.tar.xz
 
-# Install npm (v6.14.8)
-RUN npm install -g npm@6.14.8
+# Install npm (v6.14.9)
+RUN npm install -g npm@6.14.9
 
 
 # Install JDK (v8)

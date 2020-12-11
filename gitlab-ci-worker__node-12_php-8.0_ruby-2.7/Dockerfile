@@ -1,5 +1,5 @@
-# dkdde/jenkins-worker:node-10_php-7.0_ruby-2.5
-FROM ubuntu:xenial-20201014
+# dkdde/gitlab-ci-worker:node-12_php-8.0_ruby-2.7
+FROM ubuntu:bionic-20201119
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -7,6 +7,13 @@ LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV RUBY_VERSION=2.7
+ENV PHP_VERSION=8.0
+ENV NODE_VERSION=12.2
+ENV BUNDLE_PATH=/cache-global/ruby/2.7/bundler/
+ENV COMPOSER_CACHE_DIR=/cache-global/php/7.4/composer/
+ENV NPM_CONFIG_CACHE=/cache-global/node/12/npm/
+ENV CYPRESS_CACHE_FOLDER=/cache-global/node/12/cypress/
 
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
@@ -41,7 +48,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
       libxtst6 \
       xauth \
       xvfb \
-      chromium-browser chromium-browser-l10n libmysqlclient-dev
+      chromium-browser chromium-browser-l10n libmariadb-dev
 
 # Install Git
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
@@ -52,50 +59,40 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="-
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git
 
+RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository ppa:ondrej/php &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get update -q
 
-# Install PHP (php7.0-cli)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.0-cli \
-    php7.0-bcmath php7.0-bz2 php7.0-curl php7.0-dba php7.0-dom php7.0-gd php7.0-intl php7.0-mbstring php7.0-mysql php7.0-SimpleXML php7.0-soap php7.0-wddx php7.0-xml php7.0-xmlreader php7.0-xmlwriter php7.0-zip
-RUN curl -SLO https://getcomposer.org/download/1.10.16/composer.phar &&\
+# Install PHP (php8.0-cli)
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php8.0-cli \
+    php8.0-bcmath php8.0-bz2 php8.0-curl php8.0-dba php8.0-dom php8.0-gd php8.0-intl php8.0-mbstring php8.0-mysql php8.0-SimpleXML php8.0-soap php8.0-xml php8.0-xmlreader php8.0-xmlwriter php8.0-zip
+RUN curl -SLO https://getcomposer.org/download/1.10.19/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 
-# Install Ruby (v2.5)
+# Install Ruby (v2.7)
 RUN add-apt-repository ppa:brightbox/ruby-ng &&\
     apt-get update -q &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      ruby2.5 \
-      ruby2.5-dev
+      ruby2.7 \
+      ruby2.7-dev
 
 # Install Rake, update RubyGems and install Bundler
 RUN rm -f /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
-RUN gem update --system 3.1.4 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
+RUN gem update --system 3.2.0 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.2.0 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
     gem list
 
-# Install NodeJS (v10.22.1)
-RUN curl -SLO "https://nodejs.org/dist/v10.22.1/node-v10.22.1-linux-x64.tar.xz" &&\
-    tar -xJf "node-v10.22.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v12.20.0)
+RUN curl -SLO "https://nodejs.org/dist/v12.20.0/node-v12.20.0-linux-x64.tar.xz" &&\
+    tar -xJf "node-v12.20.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v10.22.1-linux-x64.tar.xz
+    rm /node-v12.20.0-linux-x64.tar.xz
 
-# Install npm (v6.14.8)
-RUN npm install -g npm@6.14.8
-
-
-# Install JDK (v8)
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      openjdk-8-jre-headless
-
-# Add user jenkins
-RUN useradd -m -d /home/jenkins -s /bin/sh jenkins
-
-# Create local cache directories
-RUN mkdir -p {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
-    chown -R jenkins:jenkins {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache} &&\
-    chmod -R 0700 {/home/jenkins/.ssh,/home/jenkins/composer-cache,/home/jenkins/.npm,/home/jenkins/bundler-cache,/home/jenkins/.cache}
+# Install npm (v6.14.9)
+RUN npm install -g npm@6.14.9
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\

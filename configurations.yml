@@ -1,29 +1,66 @@
 _image_defaults: &_image_defaults
-  composer_version: 1.10.16
+  composer_version: 1.10.19
   rake_version: 13.0.1
-  rubygems_version: 3.1.4
-  bundler_version: 2.1.4
+  rubygems_version: 3.2.0
+  bundler_version: 2.2.0
   legacy_bundler_versions:
     - 1.17.3
     - 2.0.2
-  npm_version: 6.14.8
+    - 2.1.4
+  npm_version: 6.14.9
   jdk_version: 8
 
 _options:
   os:
-    xenial: &xenial ubuntu:xenial-20201014
-    bionic: &bionic ubuntu:bionic-20200921
-    focal: &focal ubuntu:focal-20201008
+    bionic: &bionic ubuntu:bionic-20201119
+    focal: &focal ubuntu:focal-20201106
   nodejs:
-    nodejs10_version: &nodejs10 10.22.1
-    nodejs12_version: &nodejs12 12.19.0
+    nodejs10_version: &nodejs10 10.23.0
+    nodejs12_version: &nodejs12 12.20.0
   ruby:
     ruby25_version: &ruby25 2.5
     ruby27_version: &ruby27 2.7
   php:
-    php72: &php70 php7.0-cli
     php72: &php72 php7.2-cli
     php74: &php74 php7.4-cli
+    php80: &php80 php8.0-cli
+
+node-12_php-8.0_ruby-2.7:
+  base_system: *bionic
+  <<: *_image_defaults
+  nodejs_version: *nodejs12
+  php: *php80
+  ruby_version: *ruby27
+  ruby_ppa: 'ppa:brightbox/ruby-ng'
+  php_ppa: 'ppa:ondrej/php'
+  php_extensions:
+    - php8.0-bcmath
+    - php8.0-bz2
+    - php8.0-curl
+    - php8.0-dba
+    - php8.0-dom
+    - php8.0-gd
+    - php8.0-intl
+    - php8.0-mbstring
+    - php8.0-mysql
+    - php8.0-SimpleXML
+    - php8.0-soap
+    - php8.0-xml
+    - php8.0-xmlreader
+    - php8.0-xmlwriter
+    - php8.0-zip
+  additional_apt_packages:
+    - chromium-browser
+    - chromium-browser-l10n
+    - libmariadb-dev
+  env:
+    ruby_version: 2.7
+    php_version: 8.0
+    node_version: 12.20
+    bundle_path: '/cache-global/ruby/2.7/bundler/'
+    composer_cache_dir: '/cache-global/php/7.4/composer/'
+    npm_config_cache: '/cache-global/node/12/npm/'
+    cypress_cache_folder: '/cache-global/node/12/cypress/'
 
 node-12_php-7.4_ruby-2.7:
   base_system: *bionic
@@ -56,7 +93,7 @@ node-12_php-7.4_ruby-2.7:
   env:
     ruby_version: 2.7
     php_version: 7.4
-    node_version: 12.19
+    node_version: 12.20
     bundle_path: '/cache-global/ruby/2.7/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     npm_config_cache: '/cache-global/node/12/npm/'
@@ -93,7 +130,7 @@ node-10_php-7.4_ruby-2.5:
   env:
     ruby_version: 2.5
     php_version: 7.4
-    node_version: 10.22
+    node_version: 10.23
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     npm_config_cache: '/cache-global/node/10/npm/'
@@ -130,7 +167,7 @@ node-12_php-7.4_ruby-2.5:
   env:
     ruby_version: 2.5
     php_version: 7.4
-    node_version: 12.19
+    node_version: 12.20
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     npm_config_cache: '/cache-global/node/12/npm/'
@@ -167,44 +204,7 @@ node-10_php-7.2_ruby-2.5:
   env:
     ruby_version: 2.5
     php_version: 7.2
-    node_version: 10.22
-    bundle_path: '/cache-global/ruby/2.5/bundler/'
-    composer_cache_dir: '/cache-global/php/7.2/composer/'
-    npm_config_cache: '/cache-global/node/10/npm/'
-    cypress_cache_folder: '/cache-global/node/10/cypress/'
-
-node-10_php-7.0_ruby-2.5:
-  base_system: *xenial
-  <<: *_image_defaults
-  nodejs_version: *nodejs10
-  php: *php70
-  ruby_version: *ruby25
-  ruby_ppa: 'ppa:brightbox/ruby-ng'
-  php_extensions:
-    - php7.0-bcmath
-    - php7.0-bz2
-    - php7.0-curl
-    - php7.0-dba
-    - php7.0-dom
-    - php7.0-gd
-    - php7.0-intl
-    - php7.0-mbstring
-    - php7.0-mysql
-    - php7.0-SimpleXML
-    - php7.0-soap
-    - php7.0-wddx
-    - php7.0-xml
-    - php7.0-xmlreader
-    - php7.0-xmlwriter
-    - php7.0-zip
-  additional_apt_packages:
-    - chromium-browser
-    - chromium-browser-l10n
-    - libmysqlclient-dev
-  env:
-    ruby_version: 2.5
-    php_version: 7.0
-    node_version: 10.22
+    node_version: 10.23
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     composer_cache_dir: '/cache-global/php/7.2/composer/'
     npm_config_cache: '/cache-global/node/10/npm/'
@@ -220,7 +220,7 @@ node-12_ruby-2.7:
     - libmariadb-dev
   env:
     ruby_version: 2.7
-    node_version: 12.19
+    node_version: 12.20
     bundle_path: '/cache-global/ruby/2.7/bundler/'
     npm_config_cache: '/cache-global/node/12/npm/'
     cypress_cache_folder: '/cache-global/node/12/cypress/'
@@ -237,7 +237,7 @@ node-10_ruby-2.5:
     - libmysqlclient-dev
   env:
     ruby_version: 2.5
-    node_version: 10.22
+    node_version: 10.23
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     npm_config_cache: '/cache-global/node/10/npm/'
     cypress_cache_folder: '/cache-global/node/10/cypress/'
