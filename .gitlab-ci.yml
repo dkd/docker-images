@@ -9,10 +9,6 @@ debug_docker:
   stage: debug_docker
   script: docker info
 
-build_jenkins-worker__node-10_php-7.0_ruby-2.5:
-  interruptible: true
-  stage: build_images
-  script: docker build -t dkdde/jenkins-worker:node-10_php-7.0_ruby-2.5 jenkins-worker__node-10_php-7.0_ruby-2.5 --no-cache
 
 build_jenkins-worker__node-10_php-7.2_ruby-2.5:
   interruptible: true
@@ -44,11 +40,10 @@ build_jenkins-worker__node-12_ruby-2.7:
   stage: build_images
   script: docker build -t dkdde/jenkins-worker:node-12_ruby-2.7 jenkins-worker__node-12_ruby-2.7 --no-cache
 
-
-build_gitlab-ci-worker__node-10_php-7.0_ruby-2.5:
+build_jenkins-worker__node-12_php-8.0_ruby-2.7:
   interruptible: true
   stage: build_images
-  script: docker build -t dkdde/gitlab-ci-worker:node-10_php-7.0_ruby-2.5 gitlab-ci-worker__node-10_php-7.0_ruby-2.5 --no-cache
+  script: docker build -t dkdde/jenkins-worker:node-12_php-8.0_ruby-2.7 jenkins-worker__node-12_php-8.0_ruby-2.7 --no-cache
 
 build_gitlab-ci-worker__node-10_php-7.2_ruby-2.5:
   interruptible: true
@@ -79,6 +74,12 @@ build_gitlab-ci-worker__node-12_ruby-2.7:
   interruptible: true
   stage: build_images
   script: docker build -t dkdde/gitlab-ci-worker:node-12_ruby-2.7 gitlab-ci-worker__node-12_ruby-2.7 --no-cache
+
+build_jenkins-worker__node-12_php-8.0_ruby-2.7:
+  interruptible: true
+  stage: build_images
+  script: docker build -t dkdde/jenkins-worker:node-12_php-8.0_ruby-2.7 jenkins-worker__node-12_php-8.0_ruby-2.7 --no-cache
+
 
 upload_images:
   interruptible: true
