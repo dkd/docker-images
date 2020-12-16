@@ -76,8 +76,8 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Install Rake, update RubyGems and install Bundler
 RUN rm -f /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
-RUN gem update --system 3.2.0 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.2.0 --no-doc --no-post-install-message &&\
+RUN gem update --system 3.2.1 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.2.1 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
