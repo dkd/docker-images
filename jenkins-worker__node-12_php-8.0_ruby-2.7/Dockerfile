@@ -4,9 +4,9 @@ FROM ubuntu:bionic-20201119
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
 # Setup environment
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 # Setup locale
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
@@ -16,29 +16,29 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 
 # for testing purposes: DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-      openssh-client \
-      wget \
-      curl \
-      unzip \
-      locales \
-      libxslt-dev \
-      libxml2-dev \
       build-essential \
-      sqlite3 \
-      libsqlite3-dev \
-      libcurl4-openssl-dev \
+      curl \
       imagemagick \
-      libmagickwand-dev \
-      net-tools \
-      libssl-dev \
-      libgtk2.0-0 \
-      libgtk-3-0 \
-      libnotify-dev \
-      libgconf-2-4 \
-      libnss3 \
-      libxss1 \
       libasound2 \
+      libcurl4-openssl-dev \
+      libgconf-2-4 \
+      libgtk-3-0 \
+      libgtk2.0-0 \
+      libmagickwand-dev \
+      libnotify-dev \
+      libnss3 \
+      libsqlite3-dev \
+      libssl-dev \
+      libxml2-dev \
+      libxslt-dev \
+      libxss1 \
       libxtst6 \
+      locales \
+      net-tools \
+      openssh-client \
+      sqlite3 \
+      unzip \
+      wget \
       xauth \
       xvfb \
       chromium-browser chromium-browser-l10n libmariadb-dev
@@ -71,8 +71,9 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Install Rake, update RubyGems and install Bundler
 RUN rm -f /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
-RUN gem update --system 3.2.1 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.2.1 --no-doc --no-post-install-message &&\
+RUN gem update --system 3.2.2 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.2.2 --no-doc --no-post-install-message &&\
+    gem install rake --version=13.0.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
@@ -84,8 +85,8 @@ RUN curl -SLO "https://nodejs.org/dist/v12.20.0/node-v12.20.0-linux-x64.tar.xz" 
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v12.20.0-linux-x64.tar.xz
 
-# Install npm (v6.14.9)
-RUN npm install -g npm@6.14.9
+# Install npm (v6.14.10)
+RUN npm install -g npm@6.14.10
 
 
 # Install JDK (v8)
