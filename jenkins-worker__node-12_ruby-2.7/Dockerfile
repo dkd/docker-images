@@ -1,5 +1,5 @@
 # dkdde/jenkins-worker:node-12_ruby-2.7
-FROM ubuntu:bionic-20201119
+FROM ubuntu:bionic-20210118
 
 LABEL maintainer.first="Nicolai Reuschling 'nicolai.reuschling@dkd.de'"
 
@@ -18,6 +18,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -q update &&\
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
       build-essential \
       curl \
+      gpg \
       imagemagick \
       libasound2 \
       libcurl4-openssl-dev \
@@ -63,21 +64,21 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Update RubyGems and install Bundler
 RUN rm -f /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
-RUN gem update --system 3.2.3 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.2.3 --no-doc --no-post-install-message &&\
+RUN gem update --system 3.2.6 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.2.6 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
     gem list
 
-# Install NodeJS (v12.20.0)
-RUN curl -SLO "https://nodejs.org/dist/v12.20.0/node-v12.20.0-linux-x64.tar.xz" &&\
-    tar -xJf "node-v12.20.0-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v12.20.1)
+RUN curl -SLO "https://nodejs.org/dist/v12.20.1/node-v12.20.1-linux-x64.tar.xz" &&\
+    tar -xJf "node-v12.20.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v12.20.0-linux-x64.tar.xz
+    rm /node-v12.20.1-linux-x64.tar.xz
 
-# Install npm (v6.14.10)
-RUN npm install -g npm@6.14.10
+# Install npm (v6.14.11)
+RUN npm install -g npm@6.14.11
 
 
 # Install JDK (v8)
