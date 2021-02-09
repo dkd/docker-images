@@ -92,8 +92,8 @@ RUN curl -SLO "https://nodejs.org/dist/v12.20.1/node-v12.20.1-linux-x64.tar.xz" 
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
     rm /node-v12.20.1-linux-x64.tar.xz
 
-# Install npm (v7.5.3)
-RUN npm install -g npm@7.5.3
+# Install npm (v6.14.11)
+RUN npm install -g npm@6.14.11
 
 # Cleanup
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q autoremove &&\
