@@ -66,7 +66,7 @@ RUN DEBIAN_FRONTEND="noninteractive" add-apt-repository ppa:ondrej/php &&\
 # Install PHP (php7.4-cli)
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends php7.4-cli \
     php7.4-bcmath php7.4-bz2 php7.4-curl php7.4-dba php7.4-dom php7.4-gd php7.4-intl php7.4-mbstring php7.4-mysql php7.4-SimpleXML php7.4-soap php7.4-xml php7.4-xmlreader php7.4-xmlwriter php7.4-zip
-RUN curl -SLO https://getcomposer.org/download/1.10.19/composer.phar &&\
+RUN curl -SLO https://getcomposer.org/download/1.10.20/composer.phar &&\
     mv composer.phar /usr/local/bin/composer &&\
     chmod +x /usr/local/bin/composer
 
@@ -79,18 +79,18 @@ RUN add-apt-repository ppa:brightbox/ruby-ng &&\
 
 # Update RubyGems and install Bundler
 RUN rm -f /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb
-RUN gem update --system 3.2.9 --no-doc --no-post-install-message &&\
-    gem install bundler --version=2.2.9 --no-doc --no-post-install-message &&\
+RUN gem update --system 3.2.10 --no-doc --no-post-install-message &&\
+    gem install bundler --version=2.2.10 --no-doc --no-post-install-message &&\
     gem install bundler --version=1.17.3 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.0.2 --no-doc --no-post-install-message &&\
     gem install bundler --version=2.1.4 --no-doc --no-post-install-message &&\
     gem list
 
-# Install NodeJS (v12.20.1)
-RUN curl -SLO "https://nodejs.org/dist/v12.20.1/node-v12.20.1-linux-x64.tar.xz" &&\
-    tar -xJf "node-v12.20.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
+# Install NodeJS (v12.20.2)
+RUN curl -SLO "https://nodejs.org/dist/v12.20.2/node-v12.20.2-linux-x64.tar.xz" &&\
+    tar -xJf "node-v12.20.2-linux-x64.tar.xz" -C /usr/local --strip-components=1 &&\
     ln -s /usr/local/bin/node /usr/local/bin/nodejs &&\
-    rm /node-v12.20.1-linux-x64.tar.xz
+    rm /node-v12.20.2-linux-x64.tar.xz
 
 # Install npm (v6.14.11)
 RUN npm install -g npm@6.14.11
