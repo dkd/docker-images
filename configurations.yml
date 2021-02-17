@@ -1,8 +1,8 @@
 _image_defaults: &_image_defaults
   composer_version: 1.10.20
   rake_version: 13.0.3
-  rubygems_version: 3.2.10
-  bundler_version: 2.2.10
+  rubygems_version: 3.2.11
+  bundler_version: 2.2.11
   legacy_bundler_versions:
     - 1.17.3
     - 2.0.2
