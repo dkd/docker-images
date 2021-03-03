@@ -1,8 +1,8 @@
 _image_defaults: &_image_defaults
   composer_version: 1.10.20
   rake_version: 13.0.3
-  rubygems_version: 3.2.11
-  bundler_version: 2.2.11
+  rubygems_version: 3.2.13
+  bundler_version: 2.2.13
   legacy_bundler_versions:
     - 1.17.3
     - 2.0.2
@@ -15,9 +15,9 @@ _options:
     bionic: &bionic ubuntu:bionic-20210118
     focal: &focal ubuntu:focal-20210119
   nodejs:
-    nodejs10_version: &nodejs10 10.23.3
-    nodejs12_version: &nodejs12 12.20.2
-    nodejs14_version: &nodejs14 14.15.5
+    nodejs10_version: &nodejs10 10.24.0
+    nodejs12_version: &nodejs12 12.21.0
+    nodejs14_version: &nodejs14 14.16.0
   ruby:
     ruby25_version: &ruby25 2.5
     ruby27_version: &ruby27 2.7
@@ -58,7 +58,7 @@ node-12_php-8.0_ruby-2.7:
     bundle_path: '/cache-global/ruby/2.7/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     cypress_cache_folder: '/cache-global/node/12/cypress/'
-    node_version: 12.20
+    node_version: 12.21
     npm_config_cache: '/cache-global/node/12/npm/'
     php_version: 8.0
     ruby_version: *ruby27
@@ -95,7 +95,7 @@ node-12_php-7.4_ruby-2.7:
     bundle_path: '/cache-global/ruby/2.7/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     cypress_cache_folder: '/cache-global/node/12/cypress/'
-    node_version: 12.20
+    node_version: 12.21
     npm_config_cache: '/cache-global/node/12/npm/'
     php_version: 7.4
     ruby_version: *ruby27
@@ -132,7 +132,7 @@ node-10_php-7.4_ruby-2.5:
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     cypress_cache_folder: '/cache-global/node/10/cypress/'
-    node_version: 10.23
+    node_version: 10.24
     npm_config_cache: '/cache-global/node/10/npm/'
     php_version: 7.4
     ruby_version: *ruby25
@@ -169,7 +169,7 @@ node-12_php-7.4_ruby-2.5:
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     composer_cache_dir: '/cache-global/php/7.4/composer/'
     cypress_cache_folder: '/cache-global/node/12/cypress/'
-    node_version: 12.20
+    node_version: 12.21
     npm_config_cache: '/cache-global/node/12/npm/'
     php_version: 7.4
     ruby_version: *ruby25
@@ -206,7 +206,7 @@ node-10_php-7.2_ruby-2.5:
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     composer_cache_dir: '/cache-global/php/7.2/composer/'
     cypress_cache_folder: '/cache-global/node/10/cypress/'
-    node_version: 10.23
+    node_version: 10.24
     npm_config_cache: '/cache-global/node/10/npm/'
     php_version: 7.2
     ruby_version: *ruby25
@@ -222,7 +222,7 @@ node-12_ruby-2.7:
   env:
     bundle_path: '/cache-global/ruby/2.7/bundler/'
     cypress_cache_folder: '/cache-global/node/12/cypress/'
-    node_version: 12.20
+    node_version: 12.21
     npm_config_cache: '/cache-global/node/12/npm/'
     ruby_version: *ruby27
 
@@ -239,6 +239,6 @@ node-10_ruby-2.5:
   env:
     bundle_path: '/cache-global/ruby/2.5/bundler/'
     cypress_cache_folder: '/cache-global/node/10/cypress/'
-    node_version: 10.23
+    node_version: 10.24
     npm_config_cache: '/cache-global/node/10/npm/'
     ruby_version: *ruby25
